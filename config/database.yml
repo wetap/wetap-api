@@ -1,8 +1,3 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
 development:
   adapter: postgis
   encoding: unicode
@@ -17,16 +12,11 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
   database: wetap-api_test
   pool: 5
   username: postgres
   password: postgres
-
-
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
