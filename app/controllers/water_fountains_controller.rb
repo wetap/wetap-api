@@ -69,6 +69,6 @@ class WaterFountainsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def water_fountain_params
-      params.require(:water_fountain).permit(:point)
+      params.require(:water_fountain).permit(:location)
     end
 end

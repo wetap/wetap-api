@@ -23,7 +23,7 @@ describe WaterFountainsController do
   # This should return the minimal set of attributes required to create a valid
   # WaterFountain. As you add validations to WaterFountain, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "point" => "" } }
+  let(:valid_attributes) { { "location" => "" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe WaterFountainsController do
       it "assigns a newly created but unsaved water_fountain as @water_fountain" do
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(WaterFountain).to receive(:save).and_return(false)
-        post :create, {:water_fountain => { "point" => "invalid value" }}, valid_session
+        post :create, {:water_fountain => { "location" => "invalid value" }}, valid_session
         expect(assigns(:water_fountain)).to be_a_new(WaterFountain)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(WaterFountain).to receive(:save).and_return(false)
-        post :create, {:water_fountain => { "point" => "invalid value" }}, valid_session
+        post :create, {:water_fountain => { "location" => "invalid value" }}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe WaterFountainsController do
         # specifies that the WaterFountain created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        expect_any_instance_of(WaterFountain).to receive(:update).with({ "point" => "" })
-        put :update, {:id => water_fountain.to_param, :water_fountain => { "point" => "" }}, valid_session
+        expect_any_instance_of(WaterFountain).to receive(:update).with({ "location" => "" })
+        put :update, {:id => water_fountain.to_param, :water_fountain => { "location" => "" }}, valid_session
       end
 
       it "assigns the requested water_fountain as @water_fountain" do
@@ -128,7 +128,7 @@ describe WaterFountainsController do
         water_fountain = WaterFountain.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(WaterFountain).to receive(:save).and_return(false)
-        put :update, {:id => water_fountain.to_param, :water_fountain => { "point" => "invalid value" }}, valid_session
+        put :update, {:id => water_fountain.to_param, :water_fountain => { "location" => "invalid value" }}, valid_session
         expect(assigns(:water_fountain)).to eq(water_fountain)
       end
 
@@ -136,7 +136,7 @@ describe WaterFountainsController do
         water_fountain = WaterFountain.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(WaterFountain).to receive(:save).and_return(false)
-        put :update, {:id => water_fountain.to_param, :water_fountain => { "point" => "invalid value" }}, valid_session
+        put :update, {:id => water_fountain.to_param, :water_fountain => { "location" => "invalid value" }}, valid_session
         expect(response).to render_template("edit")
       end
     end
