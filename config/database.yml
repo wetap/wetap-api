@@ -6,6 +6,8 @@
 development:
   adapter: postgis
   encoding: unicode
+  postgis_extension: true
+  schema_search_path: public,postgis
   database: wetap-api_development
   pool: 5
   username: postgres
