@@ -81,6 +81,8 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
+    rgeo-geojson (0.2.3)
+      rgeo (>= 0.3.7)
     rspec-collection_matchers (0.0.3)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.0.0.beta2)
@@ -142,6 +144,7 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 4.0.3)
+  rgeo-geojson
   rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 4.0.0)
   sdoc
