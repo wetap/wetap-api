@@ -31,10 +31,8 @@ class WaterFountainsController < ApplicationController
 
     respond_to do |format|
       if @water_fountain.save
-        format.html { redirect_to @water_fountain, notice: 'Water fountain was successfully created.' }
         format.json { render action: 'show', status: :created, location: @water_fountain }
       else
-        format.html { render action: 'new' }
         format.json { render json: @water_fountain.errors, status: :unprocessable_entity }
       end
     end
