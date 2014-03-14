@@ -1,5 +1,5 @@
 class WaterFountainsController < ApplicationController
-  before_action :set_water_fountain, only: [:show, :edit, :update, :destroy]
+  before_action :set_water_fountain, only: [:show, :update, :destroy]
 
   # TODO create api auth mechanism
   skip_before_filter :verify_authenticity_token, :only=> [:create, :update, :destroy]
@@ -15,15 +15,6 @@ class WaterFountainsController < ApplicationController
   def show
   end
 
-  # GET /water_fountains/new
-  def new
-    @water_fountain = WaterFountain.new
-  end
-
-  # GET /water_fountains/1/edit
-  def edit
-  end
-
   # POST /water_fountains
   # POST /water_fountains.json
   def create
@@ -33,7 +24,7 @@ class WaterFountainsController < ApplicationController
       if @water_fountain.save
         format.json { render action: 'show', status: :created, location: @water_fountain }
       else
-        format.json { render json: @water_fountain.errors, status: :unprocessable_entity }
+        format.json { render json: { error: @water_fountain.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end
@@ -43,11 +34,9 @@ class WaterFountainsController < ApplicationController
   def update
     respond_to do |format|
       if @water_fountain.update(water_fountain_params)
-        format.html { redirect_to @water_fountain, notice: 'Water fountain was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @water_fountain.errors, status: :unprocessable_entity }
+        format.json { render json: { error: @water_fountain.errors.full_messages }, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +46,6 @@ class WaterFountainsController < ApplicationController
   def destroy
     @water_fountain.destroy
     respond_to do |format|
-      format.html { redirect_to water_fountains_url }
       format.json { head :no_content }
     end
   end
@@ -73,7 +61,6 @@ class WaterFountainsController < ApplicationController
       sanitized_params = params.require(:water_fountain).permit(location: [:type,
                                                         {coordinates: []}
                                                        ])
-      sanitized_params[:location] = RGeo::GeoJSON.decode(sanitized_params[:location]).to_s
       sanitized_params
     end
 end
