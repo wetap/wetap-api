@@ -24,7 +24,7 @@ class ActiveRecordOverrideRailtie < Rails::Railtie
           username:            parsed_url.user,
           password:            parsed_url.password,
           postgis_extension:   true,
-          schema_search_path:  ['public', 'postgis']
+          schema_search_path:  'public, postgis'
         }
         establish_connection(config)
       end
