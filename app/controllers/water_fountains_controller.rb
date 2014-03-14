@@ -72,6 +72,10 @@ class WaterFountainsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def water_fountain_params
-      params.require(:water_fountain).permit(:location)
+      sanitized_params = params.require(:water_fountain).permit(location: [:type,
+                                                        {coordinates: []}
+                                                       ])
+      sanitized_params[:location] = RGeo::GeoJSON.decode(sanitized_params[:location]).to_s
+      sanitized_params
     end
 end
