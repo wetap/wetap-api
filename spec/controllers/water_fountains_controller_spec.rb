@@ -65,34 +65,31 @@ describe WaterFountainsController do
     describe "with valid params" do
       it "creates a new WaterFountain" do
         expect {
-          post :create, {:water_fountain => valid_attributes}, valid_session
+          post :create, {format: 'json', :water_fountain => valid_attributes}, valid_session
         }.to change(WaterFountain, :count).by(1)
       end
 
       it "assigns a newly created water_fountain as @water_fountain" do
-        post :create, {:water_fountain => valid_attributes}, valid_session
+        post :create, {format: 'json', :water_fountain => valid_attributes}, valid_session
         expect(assigns(:water_fountain)).to be_a(WaterFountain)
         expect(assigns(:water_fountain)).to be_persisted
+        expect(response.body.to_json).to equal(assigns(:water_fountain).to_json)
       end
 
-      it "redirects to the created water_fountain" do
-        post :create, {:water_fountain => valid_attributes}, valid_session
-        expect(response).to redirect_to(WaterFountain.last)
-      end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved water_fountain as @water_fountain" do
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(WaterFountain).to receive(:save).and_return(false)
-        post :create, {:water_fountain => { "location" => "invalid value" }}, valid_session
+        post :create, {format: 'json', :water_fountain => { "location" => "invalid value" }}, valid_session
         expect(assigns(:water_fountain)).to be_a_new(WaterFountain)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         allow_any_instance_of(WaterFountain).to receive(:save).and_return(false)
-        post :create, {:water_fountain => { "location" => "invalid value" }}, valid_session
+        post :create, {format: 'json', :water_fountain => { "location" => "invalid value" }}, valid_session
         expect(response).to render_template("new")
       end
     end
