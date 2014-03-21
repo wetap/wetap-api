@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+    - name: complete postgis installation
+      sudo: true
+      sudo_user: postgres
+      shell: echo "create extension postgis;" | psql
+
