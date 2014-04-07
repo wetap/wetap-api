@@ -37,6 +37,11 @@ describe WaterFountainsController do
       get :index, {format: 'json'}, valid_session
       expect(assigns(:water_fountains)).to eq([water_fountain])
     end
+    it "queries water fountains bounded_by bbox params" do
+      expect(WaterFountain).to receive(:bounded_by)
+      get :index, {format: 'json', bbox: '1,1,1,1'}, valid_session
+      expect(response.status).to eq(200)
+    end
   end
 
   describe "GET show" do

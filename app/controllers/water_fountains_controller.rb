@@ -8,6 +8,9 @@ class WaterFountainsController < ApplicationController
   # GET /water_fountains.json
   def index
     @water_fountains = WaterFountain.all
+    if params[:bbox]
+      @water_fountains = @water_fountains.bounded_by(params[:bbox])
+    end
   end
 
   # GET /water_fountains/1
