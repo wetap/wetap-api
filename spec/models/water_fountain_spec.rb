@@ -57,28 +57,11 @@ describe WaterFountain do
     let!(:f4) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[4.0, 4.0]}})}
     let!(:f5) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[5.0, 5.0]}})}
 
-    let(:bounding_params){ "2,2,4,4" }
+    let(:bounding_params){ [2,2,4,4] }
     subject { WaterFountain.bounded_by(bounding_params) }
 
     it { should include(f2, f3, f4) }
     it { should_not include([f1, f5]) }
-  end
-
-  describe ".bounding_box_from" do
-
-    subject { lambda { WaterFountain.bounding_box_from(params) } }
-    context "when sending too many params" do
-      let(:params) { "1,1,1,1,1" }
-      it { should raise_error }
-    end
-    context "when not sending enough params" do
-      let(:params) { "1,1,1" }
-      it { should raise_error }
-    end
-    context "when sending mangled params" do
-      let(:params) { "select * from foo;" }
-      it { should raise_error }
-    end
   end
 
 end
