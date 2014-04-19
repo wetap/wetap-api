@@ -5,6 +5,20 @@
       sudo: true
       sudo_user: postgres
       shell: echo "create extension postgis;" | psql
+    - name: add vagrant database (super)user
+      sudo: true
+      sudo_user: postgres
+      shell: createuser vagrant -ws
+    - name: terrible hack to get database in right coallation
+      sudo: true
+      sudo_user: postgres
+      shell: |
+        echo "UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1'; \
+        DROP DATABASE template1; \
+        CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UNICODE' LC_CTYPE='en_US.utf8' LC_COLLATE='en_US.utf8'; \
+        UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1'; \
+        \\c template1 \
+        VACUUM FREEZE;" | psql postgres -t
     - name: install some cool packages
       apt: pkg={{ item }} state=latest install_recommends=no update_cache=yes
       sudo: true
@@ -17,10 +31,24 @@
         - vim
         - nodejs
     - name: install rbenv
-      shell: curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash && echo "export PATH=~/.rbenv/shims:~/.rbenv/bin:$PATH" >> ~/.bash_profile
+      shell: |
+        curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash && \
+        echo 'export RBENV_ROOT="${HOME}/.rbenv"
+        if [ -d "${RBENV_ROOT}" ]; then
+          export PATH="${RBENV_ROOT}/bin:${PATH}"
+          eval "$(rbenv init -)"
+        fi' >> ~/.bash_profile
     - name: configure rubygems
-      shell: "install: --no-rdoc --no-ri\nupdate: --no-rdoc --no-ri" > ~vagrant/.gemrc
+      shell: |
+        echo 'install: --no-rdoc --no-ri
+        update: --no-rdoc --no-ri' > ~vagrant/.gemrc
     - name: install ruby
-      shell: cd /vagrant && ~/.rbenv/bin/rbenv install && gem install bundler && bundle
+      shell: source ~/.bash_profile && cd /vagrant && rbenv install -s executable=/bin/bash
+    - name: installing ruby gems
+      shell: source ~/.bash_profile && cd /vagrant && gem install bundler && bundle executable=/bin/bash
+    - name: set up databases
+      shell: source ~/.bash_profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
+    - name: make sure everything is cool by running the tests
+      shell: source ~/.bash_profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
 
 
