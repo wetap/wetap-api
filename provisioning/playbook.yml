@@ -5,4 +5,22 @@
       sudo: true
       sudo_user: postgres
       shell: echo "create extension postgis;" | psql
+    - name: install some cool packages
+      apt: pkg={{ item }} state=latest install_recommends=no update_cache=yes
+      sudo: true
+      with_items:
+        - make
+        - curl
+        - git
+        - htop
+        - screen
+        - vim
+        - nodejs
+    - name: install rbenv
+      shell: curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash && echo "export PATH=~/.rbenv/shims:~/.rbenv/bin:$PATH" >> ~/.bash_profile
+    - name: configure rubygems
+      shell: "install: --no-rdoc --no-ri\nupdate: --no-rdoc --no-ri" > ~vagrant/.gemrc
+    - name: install ruby
+      shell: cd /vagrant && ~/.rbenv/bin/rbenv install && gem install bundler && bundle
+
 
