@@ -18,7 +18,7 @@ Make sure you are running at least Vagrant 1.5
     Vagrant 1.5.0
     (localhost)➜ vagrant up
     Bringing machine 'default' up with 'virtualbox' provider...
-    ==> default: Box 'bdon/geo' could not be found. Attempting to find and install...
+    ==> default: Box 'michaelkirk/wetap-api' could not be found. Attempting to find and install...
         default: Box Provider: virtualbox
         default: Box Version: >= 0
     ...
@@ -27,22 +27,29 @@ Get yourself a cup of coffee while your machine downloads and builds -
 it should take 5-10 minutes.
 
 
-Install Ruby and Gems
+The app may have changed since the last box snapshot was taken. Make
+sure all gems are installed and the latest database migrations have been
+run.
 
     (localhost)➜ vagrant ssh
     (vagranthost)➜ cd /vagrant
-    (vagranthost)➜ rbenv install
-    (vagranthost)➜ gem install bundler
     (vagranthost)➜ bundle
+    (vagranthost)➜ bundle exec rake db:migrate
 
-Create the database and run the server
+Make sure everything looks good on the virtual machine by preparing and
+running the test suite
 
-    (vagranthost)➜ bundle exec rake db:setup
-    (vagranthost)➜ bundle exec rails s
+    (vagranthost)➜ bundle exec rake db:test:prepare
+    (vagranthost)➜ bundle exec rspec spec
+
+If it passes, start the server
+
+    (vagranthost)➜ bundle exec rails server
+
 
 Verify that you're good to go!
 
-    (localhost)➜ curl localhost:4000/water_fountains
+    (localhost)➜ curl localhost:4000/water_fountains.json
     {
       water_fountains: [
         {
