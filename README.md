@@ -49,14 +49,9 @@ If it passes, start the server
 
 Verify that you're good to go!
 
+    # There are no water fountains by default, so you should see an
+    # empty JSON list.
     (localhost)➜ curl localhost:4000/water_fountains.json
-    {
-      water_fountains: [
-        {
-          id: 1234,
-          lat: 1.23,
-          lon: 3.45
-        }
-      ]
-    }
+    []
 
+  
