@@ -8,6 +8,11 @@ class WaterFountainsController < ApplicationController
   # GET /water_fountains.json
   def index
     @water_fountains = WaterFountain.all
+    if params[:bbox]
+      bbox_params = sanitize_bbox_params(params[:bbox])
+      @water_fountains = @water_fountains.bounded_by(bbox_params)
+
+    end
   end
 
   # GET /water_fountains/1
@@ -59,8 +64,19 @@ class WaterFountainsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def water_fountain_params
       sanitized_params = params.require(:water_fountain).permit(location: [:type,
-                                                        {coordinates: []}
-                                                       ])
+                                                                           {coordinates: []}
+      ])
       sanitized_params
     end
+
+    def sanitize_bbox_params(param)
+      bbox_params = param.split(',').map {|v| v.to_f }
+      if bbox_params.length != 4
+        respond_to do |format|
+          format.json { render json: { error: "bbox param is formatted incorrectly" }, status: :bad_request }
+        end
+      end
+      bbox_params
+    end
+
 end
