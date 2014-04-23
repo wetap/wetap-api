@@ -6,9 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# LA Union Station
+# Montpelier Vermont City Hall
 WaterFountain.create!("location" => { "type" => "Point",
-                                      "coordinates" => [-118.2352, 34.055] })
+                                      "coordinates" => [-72.5755, 44.2592] })
 
 # San Francisco MOMA
 WaterFountain.create!("location" => { "type" => "Point",
