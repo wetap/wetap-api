@@ -8,10 +8,10 @@
 
 # LA Union Station
 WaterFountain.create!("location" => { "type" => "Point",
-                                      "coordinates" => [34.055, -118.2352] })
+                                      "coordinates" => [-118.2352, 34.055] })
 
 # San Francisco MOMA
 WaterFountain.create!("location" => { "type" => "Point",
-                                      "coordinates" => [37.7858, -122.4008] })
+                                      "coordinates" => [-122.4008, 37.7858] })
 
 
