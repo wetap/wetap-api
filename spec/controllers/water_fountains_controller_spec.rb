@@ -37,6 +37,38 @@ describe WaterFountainsController do
       get :index, {format: 'json'}, valid_session
       expect(assigns(:water_fountains)).to eq([water_fountain])
     end
+    it "queries water fountains bounded_by bbox params" do
+      expect(WaterFountain).to receive(:bounded_by)
+      get :index, {format: 'json', bbox: '1,1,1,1'}, valid_session
+      expect(response.status).to eq(200)
+    end
+
+    describe "#sanitize_bbox_params" do
+
+      before do
+        get :index, {format: 'json', bbox: bbox_params}, valid_session
+        #get :index, {format: 'json', bbox: bbox_params}, valid_session
+      end
+
+      subject { WaterFountain.bounding_box_from(params) }
+      context "when sending too many params" do
+        let(:bbox_params) { "1,1,1,1,1" }
+        it { expect(response.status).to eq(400) }
+      end
+      context "when not sending enough params" do
+        let(:bbox_params) { "1,1,1" }
+        it { expect(response.status).to eq(400) }
+      end
+      context "when sending mangled params" do
+        let(:bbox_params) { "select * from foo;" }
+        it { expect(response.status).to eq(400) }
+      end
+      context "when sending the correct number of params" do
+        let(:bbox_params) { "1,1,1,1" }
+        it { expect(response.status).to eq(200) }
+      end
+    end
+
   end
 
   describe "GET show" do
