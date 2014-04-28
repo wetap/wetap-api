@@ -25,6 +25,7 @@ describe WaterFountainsController do
   # WaterFountain. As you add validations to WaterFountain, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { { "location" => {"type" => "Point","coordinates" => [1.0,1.0]} } }
+  let(:private_attribute_names) { ["data_source", "data_source_id", "import_source"] }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -76,7 +77,7 @@ describe WaterFountainsController do
       water_fountain = WaterFountain.create! valid_attributes
       get :show, {format: 'json', :id => water_fountain.to_param}, valid_session
       expect(assigns(:water_fountain)).to eq(water_fountain)
-      expect(response.body).to eq(assigns(:water_fountain).to_json)
+      expect(response.body).to eq(assigns(:water_fountain).as_json.except(*private_attribute_names).to_json)
     end
   end
 
@@ -92,7 +93,7 @@ describe WaterFountainsController do
         post :create, {format: 'json', :water_fountain => valid_attributes}, valid_session
         expect(assigns(:water_fountain)).to be_a(WaterFountain)
         expect(assigns(:water_fountain)).to be_persisted
-        expect(response.body).to eq(assigns(:water_fountain).to_json)
+        expect(response.body).to eq(assigns(:water_fountain).as_json.except(*private_attribute_names).to_json)
       end
 
     end
