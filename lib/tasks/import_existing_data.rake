@@ -90,7 +90,7 @@ class ProcessMdcWetap2
 end
 
 namespace :wetap do
-  desc "Import existing wetap data from various sources"
+  desc "Import existing wetap data from various sources, use env var `INSERT=1` to actually insert data"
   task import_existing_data: :environment do
 
     ensure_directory(@data_path);
