@@ -24,18 +24,33 @@ def download_data_and_read(name, attributes)
   end
 end
 
-# Process different data sources
-def process_mdcWetap2(csv_data)
-  count = 0
-  CSV.parse(csv_data, :headers => true) do |row|
-    # TODO
-    throw('missing lat lon') unless row["latlon"].present?
-    lat, lon = row["latlon"].split(',')
-    source = row["source"]
-    puts [lat, lon, source] if ENV['PRINT_ROWS']
-    count += 1
+class ProcessMdcWetap2
+  # Process different data sources
+  def self.process_mdcWetap2(csv_data)
+    count = 0
+    CSV.parse(csv_data, :headers => true) do |row|
+      # TODO
+      throw('missing lat lon') unless row["latlon"].present?
+      lat, lon = row["latlon"].split(',')
+      source_pkey = row["source:pkey"]
+      source = row["source"]
+      image = self.urldecode_image_paths_if_encoded(row["image"])
+      puts "<#{lat}> <#{lon}> <#{source}> <#{source_pkey}> <#{image}>" if ENV['PRINT_ROWS']
+      count += 1
+    end
+    puts "Processed #{count} lines of data"
   end
-  puts "Processed #{count} lines of data"
+
+  def self.urldecode_image_paths_if_encoded(url)
+    return url unless url.present? && url.class == String
+    if url.starts_with?("http%3A%2F%2F")
+      decoded_url = URI.unescape(url)
+      puts "Discovered encoded url: #{url} decoded: #{decoded_url} " if ENV['DEBUG']
+      return decoded_url
+    else
+      return url
+    end
+  end
 end
 
 namespace :wetap do
@@ -51,7 +66,7 @@ namespace :wetap do
 
     puts "Begin extracting data"
     puts "mdcWetap2: "
-    process_mdcWetap2(needed_files["mdcWetap2.csv"][:data])
+    ProcessMdcWetap2.process_mdcWetap2(needed_files["mdcWetap2.csv"][:data])
 
   end
 end
