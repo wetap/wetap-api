@@ -68,9 +68,15 @@ describe WaterFountain do
       let!(:f7) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[-180, 0]}})}
       let!(:f8) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[0, 0]}})}
       # postgis ST_* operations are not defined over polygons of zero area
-      let(:bounding_params){ [ 180.1, -0.1, -180, +0.1]}
+      let(:bounding_params){ [ 179.9, -0.1, -179.9, +0.1]}
       it { should include(f6, f7) }
       it { should_not include(f8) }
+    end
+
+    context "a bounding box in the eastern hemisphere" do
+      let!(:f9) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[-180, 35]}})}
+      let(:bounding_params){ [139, 34, 140, 35] }
+      it { should_not include(f9) }
     end
   end
 

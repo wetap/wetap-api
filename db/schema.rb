@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313183250) do
+ActiveRecord::Schema.define(version: 20140428142257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,12 @@ ActiveRecord::Schema.define(version: 20140313183250) do
   create_table "water_fountains", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "location",   limit: {:srid=>4326, :type=>"point"}
+    t.spatial  "location",       limit: {:srid=>4326, :type=>"point"}
+    t.string   "data_source"
+    t.string   "data_source_id"
+    t.string   "import_source"
   end
+
+  add_index "water_fountains", ["data_source", "data_source_id"], :name => "index_water_fountains_on_data_source_and_data_source_id", :unique => true
 
 end

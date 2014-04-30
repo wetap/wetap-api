@@ -7,7 +7,7 @@ class WaterFountainsController < ApplicationController
   # GET /water_fountains
   # GET /water_fountains.json
   def index
-    @water_fountains = WaterFountain.all
+    @water_fountains = WaterFountain.all.limit(50)
     if params[:bbox]
       bbox_params = sanitize_bbox_params(params[:bbox])
       @water_fountains = @water_fountains.bounded_by(bbox_params)
