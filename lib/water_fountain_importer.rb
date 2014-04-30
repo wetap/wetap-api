@@ -4,11 +4,14 @@ class WaterFountainImporter
     inserted = 0
     pretend_inserted = 0
     skipped_for_deletion = 0
+    failed_to_insert = 0
+
     CSV.parse(csv_data, :headers => true) do |row|
       raise Error.new('missing lat lon') unless row["latlon"].present?
 
       lat, lon = row["latlon"].split(',')
 
+      raise Error.new('missing source or source:key') unless row["source:pkey"].present? && row["source"].present?
       source_pkey = row["source:pkey"]
       source = row["source"]
 
@@ -35,7 +38,7 @@ class WaterFountainImporter
           $stdout.flush
         end
       else
-        fountain = WaterFountain.create(fountain_params)
+        fountain = WaterFountain.where(data_source: source, data_source_id: source_pkey).first_or_create(fountain_params)
         if fountain.persisted?
           inserted += 1
           if inserted % 100 == 0
@@ -43,6 +46,7 @@ class WaterFountainImporter
             $stdout.flush
           end
         else
+          failed_to_insert += 1
           puts "error inserting row!"
           puts fountain.errors.full_messages
           puts row_desc if ENV['PRINT_ROWS']
@@ -58,6 +62,7 @@ class WaterFountainImporter
       puts "Inserted #{inserted} water fountains"
     end
     puts "Skipped inserting  #{skipped_for_deletion} records because they were marked for deletion"
+    puts "Failed to insert #{failed_to_insert} fountains due to validation error."
 
   end
 

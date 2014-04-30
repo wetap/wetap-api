@@ -27,16 +27,39 @@ def download_data_and_read(name, url)
 end
 
 namespace :wetap do
-  desc "Import existing wetap data from various sources, use env var `INSERT=1` to actually insert data"
+  desc "Import existing wetap data from various sources"
   task import_existing_data: :environment do
-
     ensure_directory(@data_path)
 
     name = "mdcWetap2.csv"
-    data = download_data_and_read(name, 'https://s3.amazonaws.com/wetap-development-resources/mdcWeTap2.csv')
+    data = download_data_and_read(name, 'https://s3.amazonaws.com/wetap-development-resources/mdcWeTap2-with_source_ids.csv')
     puts "Begin extracting data"
     puts "mdcWetap2: "
     WaterFountainImporter.process(data, name)
 
   end
+
+  desc "annotate blank sources in input file"
+  task ensure_source_id: :environment do
+    next_available_id = 0
+    name = 'mdcWetap2.csv'
+    data = download_data_and_read(name, 'https://s3.amazonaws.com/wetap-development-resources/mdcWeTap2.csv')
+
+    outfile = CSV.open("tmp/data_import/mdcWeTap2-with_source_ids.csv", "wb")
+
+    csv_headers = CSV.parse(data)[0]
+    outfile << csv_headers
+
+    CSV.parse(data, :headers => true) do |row|
+      if row["source"] == nil || row["source"].empty?
+        row["source"] = name
+        row["source:pkey"] = next_available_id
+        next_available_id += 1
+      end
+      outfile << row
+    end
+
+    outfile.close
+  end
+
 end
