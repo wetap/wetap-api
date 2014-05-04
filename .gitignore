@@ -18,5 +18,8 @@
 # Ignore Vagrant runtime data
 .vagrant
 
+# CI reports
+spec/reports
+
 # RubyMine
 .idea
