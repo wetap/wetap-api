@@ -17,3 +17,6 @@
 
 # Ignore Vagrant runtime data
 .vagrant
+
+# RubyMine
+.idea
