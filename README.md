@@ -3,6 +3,11 @@ WeTap API
 
 A json API to waterfountain data.
 
+CI
+=========
+
+* http://ljs-jenkins.ngrok.com/job/WeTap-API/
+* http://ljs-jenkins.ngrok.com/job/WeTap-API-Pull-Requests/
 
 Installing
 ==========
