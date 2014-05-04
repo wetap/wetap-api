@@ -1,4 +1,2 @@
-if ENV['GENERATE_REPORTS'] == 'true'
-    require 'ci/reporter/rake/rspec'
-    task :spec => 'ci:setup:rspec'
-end
+require 'ci/reporter/rake/rspec'
+ENV['CI_REPORTS'] = File.expand_path(File.join(__FILE__, '..', '..', '..', 'ci-reports'))
