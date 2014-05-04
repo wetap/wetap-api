@@ -60,5 +60,3 @@ Verify that you're good to go!
     # empty JSON list.
     (localhost)➜ curl localhost:4000/water_fountains.json
     []
-
-  
