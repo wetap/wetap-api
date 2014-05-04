@@ -6,8 +6,10 @@ A json API to waterfountain data.
 CI
 =========
 
-* http://ljs-jenkins.ngrok.com/job/WeTap-API/
-* http://ljs-jenkins.ngrok.com/job/WeTap-API-Pull-Requests/
+* http://ljs-jenkins.ngrok.com/job/WeTap-API/ 
+    - on commits to master
+* http://ljs-jenkins.ngrok.com/job/WeTap-API-Pull-Requests/ 
+    - new pull-requests and new commits to existing pull requests
 
 Installing
 ==========
