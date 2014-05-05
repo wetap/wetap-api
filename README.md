@@ -3,6 +3,13 @@ WeTap API
 
 A json API to waterfountain data.
 
+CI
+=========
+
+* http://ljs-jenkins.ngrok.com/job/WeTap-API/ 
+    - on commits to master
+* http://ljs-jenkins.ngrok.com/job/WeTap-API-Pull-Requests/ 
+    - new pull-requests and new commits to existing pull requests
 
 Installing
 ==========
@@ -53,5 +60,3 @@ Verify that you're good to go!
     # empty JSON list.
     (localhost)➜ curl localhost:4000/water_fountains.json
     []
-
-  

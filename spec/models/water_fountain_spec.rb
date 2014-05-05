@@ -86,11 +86,11 @@ describe WaterFountain do
 
     context "when bounding a non spanning region" do
       let(:bbox_params){ [-1, -1, 1, 1] }
-      it{ should be_falsey }
+      it{ should be_false }
     end
     context "when bounding a dateline spanning region" do
       let(:bbox_params){ [180, 0, -180, 1] }
-      it{ should be_truthy }
+      it{ should be_true }
     end
   end
 end
