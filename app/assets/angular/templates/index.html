@@ -23,8 +23,8 @@
       </tr>
       <tr ng-repeat="item in items">
         <td>{{item.id}}</td>
-        <td>{{item.location.coordinates[1]}}</td>
-        <td>{{item.location.coordinates[0]}}</td>
+        <td>{{item.latitude()}}</td>
+        <td>{{item.longitude()}}</td>
 
         <!-- When the user clicks this button it will call the 'destroy()' method within the controller -->
         <td>
