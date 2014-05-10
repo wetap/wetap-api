@@ -28,8 +28,8 @@
 
         <!-- When the user clicks this button it will call the 'destroy()' method within the controller -->
         <td>
-          <a ng-click="show($index)" href="">details</a>
-          <a ng-click="destroy($index)" href=""><i class="icon-trash"></i></a>
+          <a href="#/water_fountain/{{item.id}}">details</a>
+          <a ng-click="destroy($index)" href="">destroy</a>
         </td>
       </tr>
     </table>
@@ -37,20 +37,11 @@
   </div>
 
   <div class="span3">
-
     <a href="#/forum/new" class="btn btn-primary btn-block btn-large">New</a>
-
     <br/>
-
     <div class="well">
       <p>
-        Welcome to the simple-forum project. This an application designed primarily in AngularJS for a front-end
-        and
-        Ruby on Rails as a back-end.
-      </p>
-
-      <p>
-        Please feel free to leave a comment. Try to keep it civil and clean. Thanks!
+        Welcome to the Water Fountain project.
       </p>
     </div>
 

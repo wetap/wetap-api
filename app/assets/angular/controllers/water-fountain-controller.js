@@ -41,5 +41,5 @@ app.controller('WaterFountainCreateController', ['$scope', '$location', 'WaterFo
 //A controller to show the waterFountain and all it's glory
 app.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$routeParams', function ($scope, WaterFountain, $routeParams) {
   //Grab the waterFountain from the server
-  $scope.waterFountain = WaterFountain.get({id: $routeParams.id})
+  $scope.waterFountain = WaterFountain.get({id: $routeParams.id});
 }]);
