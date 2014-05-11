@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 1.2'
 # add geojson support to rgeo
 gem 'rgeo-geojson'
 
+# add devise for authentication
+gem 'devise'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
