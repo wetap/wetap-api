@@ -1,4 +1,5 @@
 WetapApi::Application.routes.draw do
+  devise_for :users
   resources :water_fountains, :defaults => {format: :json}
   root to: 'application#index'
 
