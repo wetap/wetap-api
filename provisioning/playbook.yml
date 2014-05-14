@@ -30,6 +30,8 @@
         - screen
         - vim
         - nodejs
+        - libqt4-dev
+        - build-essential
     - name: install rbenv
       shell: |
         curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash && \
