@@ -10,8 +10,7 @@
 WaterFountain.create!("location" => { "type" => "Point",
                                       "coordinates" => [-72.5755, 44.2592] })
 
-# San Francisco MOMA
+# San Francisco Museum of the African Diaspora
 WaterFountain.create!("location" => { "type" => "Point",
-                                      "coordinates" => [-122.4008, 37.7858] })
-
+                                      "coordinates" => [-122.4014, 37.7858] })
 
