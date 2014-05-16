@@ -1,6 +1,12 @@
 class WaterFountain < ActiveRecord::Base
   validates :location, presence: true
 
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
+                            :storage => :s3,
+                            :s3_credentials => 'config/aws-credentials.yml'
+
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
   scope :bounded_by, ->(bbox_params) do
     where_clause = "ST_Intersects(location, ST_MakeEnvelope(?, 4326))"
     if WaterFountain.bbox_crosses_dateline(bbox_params)
@@ -21,6 +27,10 @@ class WaterFountain < ActiveRecord::Base
 
   def location
     RGeo::GeoJSON.encode(self[:location])
+  end
+
+  def image_url
+    image.url
   end
 
   private

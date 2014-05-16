@@ -23,6 +23,28 @@ class WaterFountainsController < ApplicationController
   # POST /water_fountains
   # POST /water_fountains.json
   def create
+    # check if image was sent
+    if params[:water_fountain][:image]
+      image_params = params[:water_fountain][:image]
+      # create a new tempfile named fileupload
+      tempfile = Tempfile.new("fileupload")
+      tempfile.binmode
+      # get the file and decode it with base64 then write it to the tempfile
+      tempfile.write(Base64.decode64(image_params[:file]))
+      tempfile.rewind()
+
+      # create a new uploaded file
+      uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        :tempfile => tempfile,
+        :filename => image_params[:filename]
+      )
+
+      # replace picture_path with the new uploaded file
+      params[:water_fountain][:image] =  uploaded_file
+
+      #TODO delete tempfile after uploading to s3
+    end
+
     @water_fountain = WaterFountain.new(water_fountain_params)
 
     respond_to do |format|
