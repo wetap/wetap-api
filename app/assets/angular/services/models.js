@@ -1,19 +1,18 @@
 'use strict';
 
-var app = angular.module('app');
+var weTap = angular.module('weTap');
 
-app.factory('WaterFountain', ['$resource', function ($resource) {
+weTap.factory('WaterFountain', ['$resource', function ($resource) {
 
-    var waterFountainFactory = $resource('/water_fountains/:id', {id: '@id'});
+  var waterFountainFactory = $resource('/water_fountains/:id', {id: '@id'});
 
-    waterFountainFactory.prototype.longitude = function () {
-      return this.location.coordinates[0];
-    };
+  waterFountainFactory.prototype.longitude = function () {
+    if (angular.isDefined(this.location)) {return this.location.coordinates[0];}
+  };
 
-    waterFountainFactory.prototype.latitude = function () {
-      return this.location.coordinates[1];
-    };
+  waterFountainFactory.prototype.latitude = function () {
+    if (angular.isDefined(this.location)) {return this.location.coordinates[1];}
+  };
 
-    return waterFountainFactory;
-  }]
-);
+  return waterFountainFactory;
+}]);

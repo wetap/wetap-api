@@ -1,0 +1,26 @@
+<h2>New Water Fountain</h2>
+
+<!-- When the form is submitted call the save() function within the controller -->
+<form ng-submit="save()" class="form-vertical">
+
+  <!-- The control-group, control-label, and controls classes are Bootstrap specific -->
+  <div class="control-group">
+    <label class="control-label">Longitude:</label>
+    <div class="controls">
+      <input type="text" autofocus id="longitude" ng-model="waterFountain.longitude"/>
+      <!-- If there's any errors that pertain to longitude display them here! -->
+      <div ng-repeat="error in errors.longitude">{{error}}</div>
+    </div>
+    <label class="control-label">Latitude:</label>
+    <div class="controls">
+      <input type="text" id="latitude" ng-model="waterFountain.latitude"/>
+      <!-- If there's any errors that pertain to longitude display them here! -->
+      <div ng-repeat="error in errors.latitude">{{error}}</div>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input class="btn btn-primary" type="submit" value="Create"/>
+    </div>
+  </div>
+</form>

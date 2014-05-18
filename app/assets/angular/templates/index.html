@@ -1,49 +1,41 @@
 <h2>Water Fountains</h2>
-
-<div class="row">
-
+<div class="row ng-cloak">
   <div class="span9">
-
     <!-- This will only show when there's no items to let the user know there's purposefully nothing there.. -->
-    <div ng-show="items.$resolved && items.length == 0">
+    <div ng-show="items.$resolved && items.length === 0">
       <hr/>
       <h4>There's nothing here...</h4>
-
-      <p>Use the 'New' button to create a new fountain!!</p>
+      <p>Use the 'New' button to add a new fountain</p>
     </div>
-
-    <!-- A nice table that will contain a list of Forums -->
-    <table class="table table-hover">
-      <!-- This will create a row for every item within our items object (both of these refer to the forums -->
-      <tr>
-        <th>id</th>
-        <th>latitude</th>
-        <th>longitude</th>
-        <th>actions</th>
-      </tr>
-      <tr ng-repeat="item in items">
-        <td>{{item.id}}</td>
-        <td>{{item.latitude()}}</td>
-        <td>{{item.longitude()}}</td>
-
-        <!-- When the user clicks this button it will call the 'destroy()' method within the controller -->
-        <td>
-          <a href="#/water_fountain/{{item.id}}">details</a>
-          <a ng-click="destroy($index)" href="">destroy</a>
-        </td>
-      </tr>
-    </table>
-
+    <!-- The list of fountains -->
+    <div ng-show="items.$resolved">
+      <table class="table table-hover">
+        <!-- This will create a row for every item within our items object -->
+        <tr>
+          <th>Id</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="item in items">
+          <td>{{item.id}}</td>
+          <td>{{item.longitude()}}</td>
+          <td>{{item.latitude()}}</td>
+          <td>
+            <a href="#/water_fountain/{{item.id}}" class="btn btn-small">Details</a>
+            <a ng-click="destroy($index)" href="" class="btn btn-small">Delete</a>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-
   <div class="span3">
-    <a href="#/forum/new" class="btn btn-primary btn-block btn-large">New</a>
+    <a href="#/water_fountain/new" class="btn btn-primary btn-block btn-large">New</a>
     <br/>
     <div class="well">
       <p>
-        Welcome to the Water Fountain project.
+        Welcome to WeTap
       </p>
     </div>
-
   </div>
 </div>

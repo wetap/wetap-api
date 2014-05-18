@@ -1,6 +1,19 @@
-<h2>Water Fountain: {{waterFountain.id}}</h2>
-<hr/>
-
-<strong>Latitude:</strong> {{waterFountain.latitude()}}
-<br />
-<strong>Longitude:</strong> {{waterFountain.longitude()}}
+<div ng-show='waterFountain.$resolved'>
+  <h2>Water Fountain: <span ng-bind="waterFountain.id"></span></h2>
+  <hr/>
+  <strong>Longitude:</strong> <span ng-bind="map.center.longitude"></span>
+  <br/>
+  <strong>Latitude:</strong> <span ng-bind="map.center.latitude"></span>
+  <hr/>
+  <div id="map-canvas" style="height: 100%; width: 100%">
+    <google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options" control="map.control"
+                draggable="true" pan="true" ng-cloak>
+      <markers models="sites" coords="'self'" click="'onClicked'">
+        <windows show="'showWindow'" closeClick="'closeClick'">
+          <p ng-non-bindable style="width:200px">{{ options.title }}</p>
+          <p ng-non-bindable>{{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+        </windows>
+      </markers>
+    </google-map>
+  </div>
+</div>

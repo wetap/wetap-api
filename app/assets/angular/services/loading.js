@@ -1,7 +1,8 @@
+'use strict';
 /*
  Borrowed from: https://github.com/lavinjj/angularjs-spinner
  */
-angular.module('app.loading', [])
+angular.module('weTap.loading', [])
   .config(['$httpProvider', function ($httpProvider) {
     var $http,
       interceptor = ['$q', '$injector', function ($q, $injector) {
@@ -26,7 +27,7 @@ angular.module('app.loading', [])
         return function (promise) {
           $('#loading').show();
           return promise.then(success, error);
-        }
+        };
       }];
 
     $httpProvider.responseInterceptors.push(interceptor);
