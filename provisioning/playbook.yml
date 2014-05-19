@@ -30,7 +30,8 @@
         - screen
         - vim
         - nodejs
-        - imagemagick
+        - imagemagick # paperclip gem resizes images before uploading
+        - libmagic-dev # ruby-filemagic gem does mimetype lookups
     - name: install rbenv
       shell: |
         curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash && \

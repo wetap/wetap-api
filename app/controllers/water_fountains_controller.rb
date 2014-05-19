@@ -36,7 +36,7 @@ class WaterFountainsController < ApplicationController
       # will be nothing left to read. Giving us the appearance of an empty file.
       decoded_image_file.rewind
 
-      mime_type = 'image/jpeg'
+      mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
       filename = SecureRandom.uuid + '.jpg'
 
       # create a new uploaded file
