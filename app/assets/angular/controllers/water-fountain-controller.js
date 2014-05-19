@@ -52,11 +52,12 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
       $scope.sites.push({
         latitude: $scope.waterFountain.location.coordinates[1],
         longitude: $scope.waterFountain.location.coordinates[0],
-        options: { title: "Fountain: " + $scope.waterFountain.id }
+        options: { title: "Fountain: " + $scope.waterFountain.id
+        }
       });
       $scope.map = {
         options: {
-          streetViewControl: false,
+          streetViewControl: true,
           panControl: false,
           maxZoom: 20,
           minZoom: 3
@@ -65,7 +66,8 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
           latitude: $scope.waterFountain.location.coordinates[1],
           longitude: $scope.waterFountain.location.coordinates[0]
         },
-        zoomControlOptions: {position: "LEFT_TOP", style: "LARGE"},
+        zoomControlOptions: {position: "LEFT_TOP", style: "DEFAULT"},
+        mapTypeOptions: {position: "LEFT_TOP", style: "DROPDOWN_MENU"},
         zoom: 18
       };
     }

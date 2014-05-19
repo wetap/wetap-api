@@ -5,7 +5,7 @@
   <br/>
   <strong>Latitude:</strong> <span ng-bind="map.center.latitude"></span>
   <hr/>
-  <div id="map-canvas" style="height: 100%; width: 100%">
+  <div id="map-canvas">
     <google-map center="map.center" zoom="map.zoom" events="map.events" options="map.options" control="map.control"
                 draggable="true" pan="true" ng-cloak>
       <markers models="sites" coords="'self'" click="'onClicked'">

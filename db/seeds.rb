@@ -14,3 +14,7 @@ WaterFountain.create!("location" => { "type" => "Point",
 WaterFountain.create!("location" => { "type" => "Point",
                                       "coordinates" => [-122.4014, 37.7858] })
 
+
+# Ian's house
+WaterFountain.create!("location" => { "type" => "Point",
+                                      "coordinates" => [-118.3240, 34.0937] })
