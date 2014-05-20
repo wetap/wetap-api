@@ -26,11 +26,7 @@ describe WaterFountainsController do
   # adjust the attributes here as well.
   let(:valid_attributes) { { "location" => {"type" => "Point","coordinates" => [1.0,1.0]} } }
   let(:valid_attributes_with_image) do
-    valid_attributes.merge( "image" => {
-      "file" => Base64.encode64(File.read(Rails.root + 'spec/fixtures/example_water_fountain.jpg')),
-      "original_filename" => 'my_original_filename.jpg',
-      "filename" => 'my_filename.jpg'
-    })
+    valid_attributes.merge({ "image" => Base64.encode64(File.read(Rails.root + 'spec/fixtures/example_water_fountain.jpg')) })
   end
   let(:private_attribute_names) { ["data_source", "data_source_id", "import_source"] }
 
