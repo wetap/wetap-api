@@ -94,7 +94,7 @@ describe WaterFountainsController do
           type: "Point",
           coordinates: [1.0, 1.0]
         },
-        image_url: "https://s3.amazonaws.com/path/to/file"
+        image_url: nil
       }
 
       # Comparing dictionaries allows us to see which fields are mismatchd

@@ -32,6 +32,7 @@ class WaterFountain < ActiveRecord::Base
   end
 
   def image_url
+    return nil if image.blank?
     image.url
   end
 
