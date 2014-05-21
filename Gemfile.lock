@@ -46,6 +46,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -158,6 +159,7 @@ DEPENDENCIES
   aws-sdk
   ci_reporter
   coffee-rails (~> 4.0.0)
+  database_cleaner
   jbuilder (~> 1.2)
   jquery-rails
   paperclip

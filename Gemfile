@@ -46,6 +46,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'pry'
   gem 'ci_reporter'
+  gem 'database_cleaner'
 end
 
 # Use ActiveModel has_secure_password
