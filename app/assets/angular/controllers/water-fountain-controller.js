@@ -19,14 +19,14 @@ weTap.controller('WaterFountainCreateController', ['$scope', '$location', 'Water
   $scope.save = function () {
     // Create the waterFountain object to send to the back-end
     // Indentation here is to clarify the components. Feel free to adjust to suit your OCD tendencies :-)
-    var waterFountain = new WaterFountain(JSON.parse(JSON.stringify({
+    var waterFountain = new WaterFountain({
       water_fountain: {
         location: {
           type: "Point",
           coordinates: [$scope.waterFountain.longitude, $scope.waterFountain.latitude]
         }
       }
-    })));
+    });
     // Save the waterFountain object
     waterFountain.$save(function () {
       // redirect to the main page
