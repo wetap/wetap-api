@@ -41,10 +41,10 @@
         - imagemagick # paperclip gem resizes images before uploading
         - libmagic-dev # ruby-filemagic gem does mimetype lookups
     - name: installing necessary gems
-      shell: source ~/.bash_profile && cd /vagrant && gem install bundler && bundle executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && gem install bundler && rbenv rehash && bundle executable=/bin/bash
     - name: set up databases
-      shell: source ~/.bash_profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
     - name: make sure everything is cool by running the tests
-      shell: source ~/.bash_profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
 
 

@@ -1,7 +1,7 @@
 ---
 - name: rbenv | install build depends
   sudo: true
-  apt: pkg={{ item }} state=latest install_recommends=no
+  apt: pkg={{ item }} state=latest install_recommends=no update_cache=yes
   with_items:
   - build-essential
   - git
@@ -37,20 +37,20 @@
   when: rbuild_present|failed
 
 - name: rbenv | check ruby ruby_version installed
-  shell: RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}} executable=/bin/bash
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}} executable=/bin/bash
   register: ruby_installed
   ignore_errors: yes
 
 - name: rbenv | install ruby ruby_version
-  shell: RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}} executable=/bin/bash
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}} executable=/bin/bash
   when: ruby_installed|failed
 
 - name: rbenv | set global ruby {{ruby_version}}
-  shell: RBENV_ROOT={{rbenv_root}} rbenv global {{ruby_version}} executable=/bin/bash
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv global {{ruby_version}} executable=/bin/bash
   when: ruby_installed|failed
 
 - name: rbenv | rehash
-  shell: RBENV_ROOT={{rbenv_root}} rbenv rehash executable=/bin/bash
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv rehash executable=/bin/bash
   when: ruby_installed|failed
 
 - name: rbenv | set gemrc
