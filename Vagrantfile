@@ -20,8 +20,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Only provision if you need to rebuild the machine from scratch (e.g. from
   # the bdon/GeoVM base box).
   #
-  config.vm.provision "ansible" do |ansible|
+  #config.vm.provision "ansible" do |ansible|
     #ansible.playbook = "provisioning/base.yml"
-  end
+  #end
 
 end
