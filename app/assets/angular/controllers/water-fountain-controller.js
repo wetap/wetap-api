@@ -42,20 +42,19 @@ weTap.controller('WaterFountainCreateController', ['$scope', '$location', 'Water
 weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$routeParams', function ($scope, WaterFountain, $routeParams) {
   // Grab the waterFountain from the server
   $scope.waterFountain = WaterFountain.get({id: $routeParams.id});
-  $scope.sites=[];
+  $scope.sites = [];
   // minimal set needed to initialize the map without errors
-  $scope.map = {center: {latitude: 0,longitude: 0},zoom: 18, zoomControlOptions: {position: "LEFT_TOP", style: "LARGE"}};
+  $scope.map = {center: {latitude: 0, longitude: 0}, zoom: 0};
 
-  $scope.$watch('waterFountain.id', function() {
+  $scope.$watch('waterFountain.id', function () {
     if ($scope.waterFountain.$resolved) {
-      // replace the map parameters with the real values
       $scope.sites.push({
         latitude: $scope.waterFountain.location.coordinates[1],
         longitude: $scope.waterFountain.location.coordinates[0],
-        options: { title: "Fountain: " + $scope.waterFountain.id
-        }
+        options: {title: "Fountain: " + $scope.waterFountain.id}
       });
       $scope.map = {
+        control: {},
         options: {
           streetViewControl: true,
           panControl: false,
@@ -66,8 +65,6 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
           latitude: $scope.waterFountain.location.coordinates[1],
           longitude: $scope.waterFountain.location.coordinates[0]
         },
-        zoomControlOptions: {position: "LEFT_TOP", style: "DEFAULT"},
-        mapTypeOptions: {position: "LEFT_TOP", style: "DROPDOWN_MENU"},
         zoom: 18
       };
     }
@@ -83,7 +80,7 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
     };
   });
 
-  $scope.isDefined = function(viewVar) {
+  $scope.isDefined = function (viewVar) {
     return angular.isDefined(viewVar);
   };
 }]);

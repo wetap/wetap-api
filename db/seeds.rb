@@ -18,3 +18,6 @@ WaterFountain.create!("location" => { "type" => "Point",
 # Ian's house
 WaterFountain.create!("location" => { "type" => "Point",
                                       "coordinates" => [-118.3240, 34.0937] })
+
+User.create!("email" => "admin@wetap-api.com",
+             "password" => "anyanyany")

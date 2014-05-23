@@ -48,5 +48,8 @@ module WetapApi
     config.i18n.enforce_available_locales = false
     # for Devise, to support deployment on Heroku
     config.assets.initialize_on_precompile = false
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
   end
 end

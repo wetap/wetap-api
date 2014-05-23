@@ -12,10 +12,4 @@ class ApplicationController < ActionController::Base
     # but we still want the layout (since it has the App bootstrap code)
     render :layout => 'application', :nothing => true
   end
-
-  def javascript_map
-    # Chrome keeps asking for these non-existent maps for javascript libraries.
-    # It slows things down horribly.
-    render '/public/404.html', :status => 404
-  end
 end
