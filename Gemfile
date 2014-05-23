@@ -47,6 +47,8 @@ group :development, :test do
   gem 'pry'
   gem 'ci_reporter'
   gem 'database_cleaner'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 # Use ActiveModel has_secure_password

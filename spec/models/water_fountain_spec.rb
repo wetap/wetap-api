@@ -93,4 +93,10 @@ describe WaterFountain do
       it{ should be_true }
     end
   end
+  
+  describe ".generate_image_filename" do
+    subject { WaterFountain.generate_image_filename }
+    before { SecureRandom.should_receive(:uuid).and_return("totally-random") }
+    it { should == "totally-random.jpg" }
+  end
 end

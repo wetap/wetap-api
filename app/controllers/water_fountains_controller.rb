@@ -37,12 +37,11 @@ class WaterFountainsController < ApplicationController
       decoded_image_file.rewind
 
       mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
-      filename = SecureRandom.uuid + '.jpg'
 
       # create a new uploaded file
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
         :tempfile => decoded_image_file,
-        :filename => filename,
+        :filename => WaterFountain.generate_image_filename,
         :type => mime_type
       )
 

@@ -115,7 +115,11 @@ describe WaterFountainsController do
       end
 
       it "is possible to include an image" do
-        post :create, {format: 'json', :water_fountain => valid_attributes_with_image}, valid_session
+        WaterFountain.should_receive(:generate_image_filename).and_return("my-image-file.jpg")
+        VCR.use_cassette('upload_fountain_image_to_s3', match_requests_on: [:method, :host]) do
+          post :create, {format: 'json', :water_fountain => valid_attributes_with_image}, valid_session
+        end
+
         water_fountain = assigns(:water_fountain)
         expect(water_fountain).to be_a(WaterFountain)
         expect(water_fountain).to be_persisted
@@ -127,13 +131,15 @@ describe WaterFountainsController do
           location: {
             type: "Point",
             coordinates: [1.0, 1.0]
-          },
-          image_url: "https://s3.amazonaws.com/path/to/file"
+          }
         }
+        response_body = JSON.parse(response.body)
 
-        # Comparing dictionaries allows us to see which fields are mismatchd
-        # when this test fails
-        expect(JSON.parse(response.body)).to eq(JSON.parse(expected_response.to_json))
+        # We have to test the image_url separately, because it is more complex than an equivalency
+        image_url = response_body.delete("image_url")
+        image_url.should match(/s3.*amazonaws\.com.*water_fountains\/images.*my-image-file\.jpg/)
+
+        expect(response_body).to eq(JSON.parse(expected_response.to_json))
       end
     end
 

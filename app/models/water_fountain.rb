@@ -36,6 +36,10 @@ class WaterFountain < ActiveRecord::Base
     image.url
   end
 
+  def self.generate_image_filename
+    SecureRandom.uuid + '.jpg'
+  end
+
   private
 
   def self.bbox_crosses_dateline(bbox_params)
