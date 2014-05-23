@@ -46,6 +46,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'pry'
   gem 'ci_reporter'
+end
+
+group :test do
   gem 'database_cleaner'
   gem 'vcr'
   gem 'webmock'
