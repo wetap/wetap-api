@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+# dotenv should be inluded before any other gems that use environment
+# variables, otherwise those gems will get initialized with the wrong values.
+gem 'dotenv-rails', :groups => [:development, :test]
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 

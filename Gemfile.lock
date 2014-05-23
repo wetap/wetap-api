@@ -51,6 +51,11 @@ GEM
       safe_yaml (~> 1.0.0)
     database_cleaner (1.2.0)
     diff-lcs (1.2.5)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
+    dotenv-rails (0.11.1)
+      dotenv (= 0.11.1)
     erubis (2.7.0)
     execjs (2.0.2)
     hike (1.2.3)
@@ -168,6 +173,7 @@ DEPENDENCIES
   ci_reporter
   coffee-rails (~> 4.0.0)
   database_cleaner
+  dotenv-rails
   jbuilder (~> 1.2)
   jquery-rails
   paperclip

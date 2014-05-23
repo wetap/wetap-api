@@ -3,7 +3,7 @@ class WaterFountain < ActiveRecord::Base
 
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
                             :storage => :s3,
-                            :s3_credentials => 'config/aws-credentials.yml',
+                            :s3_credentials => S3_CREDENTIALS,
                             :s3_host_name => "s3-us-west-2.amazonaws.com"
 
 

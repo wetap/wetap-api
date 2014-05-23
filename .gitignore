@@ -26,3 +26,4 @@ ci-reports
 
 #credentials
 config/*-credentials.yml
+.env
