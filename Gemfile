@@ -54,8 +54,8 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'vcr'
-  gem 'webmock'
+  gem 'vcr', require: false
+  gem 'webmock', require: false
 end
 
 # Use ActiveModel has_secure_password
