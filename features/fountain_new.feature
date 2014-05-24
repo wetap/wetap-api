@@ -6,8 +6,9 @@ Feature: As an admin
   Scenario: Add a new fountain
 
     Given there are some fountains
-    When I go to the new fountain page
-    And I fill in '111' for 'longitude'
-    And I fill in '222' for 'latitude'
-    And I click button 'Create'
-    Then I should see '111'
+      And I am logged in as an admin
+      When I go to the new fountain page
+      And I fill in '111' for 'longitude'
+      And I fill in '222' for 'latitude'
+      And I click button 'Create'
+      Then I should see '111'

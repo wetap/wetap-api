@@ -10,12 +10,24 @@ Given(/^there are some fountains$/) do
 
 end
 
+And(/^I am logged in as an admin$/) do
+  User.create!("email" => "test@example.com", "password" => "anyanyany")
+  visit(new_user_session_path)
+  fill_in('user_email', :with => 'test@example.com')
+  fill_in('user_password', :with => 'anyanyany')
+  within("#new_user") { click_on "Sign in" }
+end
+
 When(/^I go to the fountain list page$/) do
   visit '/'
 end
 
 Then(/^I should see a list of fountains$/) do
   expect(page).to have_content('-72.5755')
+end
+
+Then(/^I should see the login page$/) do
+  expect(page).to have_content('You need to sign in')
 end
 
 When(/^I go to the new fountain page$/) do
