@@ -25,6 +25,30 @@ class WaterFountainsController < ApplicationController
   def create
     @water_fountain = WaterFountain.new(water_fountain_params)
 
+    # check if image was sent
+    if params[:water_fountain] && params[:water_fountain][:image]
+      # create a new tempfile named fileupload
+      decoded_image_file = Tempfile.new("fileupload")
+      decoded_image_file.binmode
+      decoded_image_data = Base64.decode64(params[:water_fountain][:image])
+      decoded_image_file.write(decoded_image_data)
+      # If we don't rewind the file cursor is at the end of the file, and there
+      # will be nothing left to read. Giving us the appearance of an empty file.
+      decoded_image_file.rewind
+
+      mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
+
+      # create a new uploaded file
+      uploaded_file = ActionDispatch::Http::UploadedFile.new(
+        :tempfile => decoded_image_file,
+        :filename => WaterFountain.generate_image_filename,
+        :type => mime_type
+      )
+
+      @water_fountain.image = uploaded_file
+    end
+
+
     respond_to do |format|
       if @water_fountain.save
         format.json { render action: 'show', status: :created, location: @water_fountain }

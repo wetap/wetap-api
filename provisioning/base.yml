@@ -1,14 +1,22 @@
 ---
 - hosts: all
+  roles:
+    - rbenv
   tasks:
     - name: complete postgis installation
       sudo: true
       sudo_user: postgres
       shell: echo "create extension postgis;" | psql
+    - name: check if vagrant db user exists
+      sudo: true
+      sudo_user: postgres
+      command: psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='vagrant'"
+      register: vagrant_db_user_exists
     - name: add vagrant database (super)user
       sudo: true
       sudo_user: postgres
       shell: createuser vagrant -ws
+      when: vagrant_db_user_exists.stdout != '1'
     - name: terrible hack to get database in right coallation
       sudo: true
       sudo_user: postgres
@@ -48,9 +56,13 @@
       shell: source ~/.bash_profile && cd /vagrant && rbenv install -s executable=/bin/bash
     - name: installing ruby gems
       shell: source ~/.bash_profile && cd /vagrant && gem install bundler && bundle executable=/bin/bash
+        - imagemagick # paperclip gem resizes images before uploading
+        - libmagic-dev # ruby-filemagic gem does mimetype lookups
+    - name: installing necessary gems
+      shell: source /etc/profile && cd /vagrant && gem install bundler && rbenv rehash && bundle executable=/bin/bash
     - name: set up databases
-      shell: source ~/.bash_profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
     - name: make sure everything is cool by running the tests
-      shell: source ~/.bash_profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
 
 

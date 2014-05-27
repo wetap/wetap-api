@@ -1,0 +1,57 @@
+---
+- name: rbenv | install build depends
+  sudo: true
+  apt: pkg={{ item }} state=latest install_recommends=no update_cache=yes
+  with_items:
+  - build-essential
+  - git
+  - libcurl4-openssl-dev
+  - libmysqlclient-dev
+  - libsqlite3-dev
+  - libpq-dev
+  - libreadline6-dev
+  - libssl-dev
+  - libxml2-dev
+  - libxslt1-dev
+  - zlib1g-dev
+  - libc6-dev
+  - libyaml-dev
+
+- name: rbenv | update rbenv repo
+  git: repo=git://github.com/sstephenson/rbenv.git dest={{ rbenv_root }} version=v0.4.0
+
+- name: rbenv | add rbenv to bash_rc PATH
+  lineinfile: dest=/home/vagrant/.bashrc line=PATH={{ rbenv_root }}/bin:$PATH
+
+- name: rbenv | add rbenv initialization to profile
+  sudo: true
+  template: src=rbenv.sh.j2 dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0755
+
+- name: rbenv | check ruby-build installed
+  command: test -x {{rbenv_root}}/plugins/ruby-build/bin/ruby-build
+  register: rbuild_present
+  ignore_errors: yes
+
+- name: rbenv | clone ruby-build repo
+  git: repo=git://github.com/sstephenson/ruby-build.git dest={{rbenv_root}}/plugins/ruby-build
+  when: rbuild_present|failed
+
+- name: rbenv | check ruby ruby_version installed
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}} executable=/bin/bash
+  register: ruby_installed
+  ignore_errors: yes
+
+- name: rbenv | install ruby ruby_version
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}} executable=/bin/bash
+  when: ruby_installed|failed
+
+- name: rbenv | set global ruby {{ruby_version}}
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv global {{ruby_version}} executable=/bin/bash
+  when: ruby_installed|failed
+
+- name: rbenv | rehash
+  shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv rehash executable=/bin/bash
+  when: ruby_installed|failed
+
+- name: rbenv | set gemrc
+  copy: src=gemrc dest=/home/vagrant/.gemrc owner=vagrant mode=0644
