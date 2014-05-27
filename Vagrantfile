@@ -18,10 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 3000, host: 4000
 
   # Only provision if you need to rebuild the machine from scratch (e.g. from
-  # the bdon/GeoVM base box). It is NOT idempotent!
+  # the bdon/GeoVM base box).
   #
   #config.vm.provision "ansible" do |ansible|
-  #  ansible.playbook = "provisioning/playbook.yml"
+    #ansible.playbook = "provisioning/base.yml"
   #end
 
 end

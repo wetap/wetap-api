@@ -25,6 +25,9 @@ describe WaterFountainsController do
   # WaterFountain. As you add validations to WaterFountain, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) { { "location" => {"type" => "Point","coordinates" => [1.0,1.0]} } }
+  let(:valid_attributes_with_image) do
+    valid_attributes.merge({ "image" => Base64.encode64(File.read(Rails.root + 'spec/fixtures/example_water_fountain.jpg')) })
+  end
   let(:private_attribute_names) { ["data_source", "data_source_id", "import_source"] }
 
   # This should return the minimal set of values that should be in the session
@@ -74,10 +77,25 @@ describe WaterFountainsController do
 
   describe "GET show" do
     it "assigns the requested water_fountain as @water_fountain" do
-      water_fountain = WaterFountain.create! valid_attributes
-      get :show, {format: 'json', :id => water_fountain.to_param}, valid_session
-      expect(assigns(:water_fountain)).to eq(water_fountain)
-      expect(response.body).to eq(assigns(:water_fountain).as_json.except(*private_attribute_names).to_json)
+      new_water_fountain = WaterFountain.create! valid_attributes
+      get :show, {format: 'json', :id => new_water_fountain.to_param}, valid_session
+      expect(assigns(:water_fountain)).to eq(new_water_fountain)
+
+      water_fountain = assigns(:water_fountain)
+      expected_response = {
+        id: water_fountain.id,
+        created_at: water_fountain.created_at,
+        updated_at: water_fountain.updated_at,
+        location: {
+          type: "Point",
+          coordinates: [1.0, 1.0]
+        },
+        image_url: nil
+      }
+
+      # Comparing dictionaries allows us to see which fields are mismatchd
+      # when this test fails
+      expect(JSON.parse(response.body)).to eq(JSON.parse(expected_response.to_json))
     end
   end
 
@@ -91,12 +109,40 @@ describe WaterFountainsController do
 
       it "assigns a newly created water_fountain as @water_fountain" do
         post :create, {format: 'json', :water_fountain => valid_attributes}, valid_session
-        expect(assigns(:water_fountain)).to be_a(WaterFountain)
-        expect(assigns(:water_fountain)).to be_persisted
-        expect(response.body).to eq(assigns(:water_fountain).as_json.except(*private_attribute_names).to_json)
+        water_fountain = assigns(:water_fountain)
+        expect(water_fountain).to be_a(WaterFountain)
+        expect(water_fountain).to be_persisted
       end
 
+      it "is possible to include an image" do
+        WaterFountain.should_receive(:generate_image_filename).and_return("my-image-file.jpg")
+        VCR.use_cassette('upload_fountain_image_to_s3', match_requests_on: [:method, :host]) do
+          post :create, {format: 'json', :water_fountain => valid_attributes_with_image}, valid_session
+        end
+
+        water_fountain = assigns(:water_fountain)
+        expect(water_fountain).to be_a(WaterFountain)
+        expect(water_fountain).to be_persisted
+
+        expected_response = {
+          id: water_fountain.id,
+          created_at: water_fountain.created_at,
+          updated_at: water_fountain.updated_at,
+          location: {
+            type: "Point",
+            coordinates: [1.0, 1.0]
+          }
+        }
+        response_body = JSON.parse(response.body)
+
+        # We have to test the image_url separately, because it is more complex than an equivalency
+        image_url = response_body.delete("image_url")
+        image_url.should match(/s3.*amazonaws\.com.*water_fountains\/images.*my-image-file\.jpg/)
+
+        expect(response_body).to eq(JSON.parse(expected_response.to_json))
+      end
     end
+
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved water_fountain as @water_fountain" do

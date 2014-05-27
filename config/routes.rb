@@ -1,6 +1,10 @@
 WetapApi::Application.routes.draw do
   resources :water_fountains
 
+  if Rails.env.test?
+    post 'database/reset', to: 'database#reset'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
