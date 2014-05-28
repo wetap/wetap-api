@@ -12,5 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require underscore
+//= require bootstrap
+//= require angular
+//= require angular-resource
+//= require angular-route
+//= require angular-google-maps.min.js
+//= require ../angular/app.js
+//= require_tree ../angular
 //= require_tree .

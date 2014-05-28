@@ -1,0 +1,13 @@
+'use strict';
+// This is our main launch point from Angular.
+var weTap = angular.module('weTap', ['ngResource', 'ngRoute', 'weTap.loading', 'google-maps']);
+
+weTap.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+  $routeProvider
+      .when('/', {controller: 'WaterFountainIndexController', templateUrl: '<%= asset_path('templates/index.html') %>'})
+      .when('/water_fountain/new', {controller: 'WaterFountainCreateController', templateUrl: '<%= asset_path('templates/new.html') %>'})
+      .when('/water_fountain/:id', {controller: 'WaterFountainShowController', templateUrl: '<%= asset_path('templates/show.html') %>'})
+      .otherwise({redirectTo: '/'});
+}]);
+
+

@@ -40,10 +40,14 @@
         - nodejs
         - imagemagick # paperclip gem resizes images before uploading
         - libmagic-dev # ruby-filemagic gem does mimetype lookups
+        - libqtwebkit-dev # for capybara headless webkit
+        - libqt4-dev # for capybara headless webkit
+        - xvfb # for capybara headless webkit
+        - build-essential # for capybara headless webkit
     - name: installing necessary gems
       shell: source /etc/profile && cd /vagrant && gem install bundler && rbenv rehash && bundle executable=/bin/bash
     - name: set up databases
-      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load executable=/bin/bash
     - name: make sure everything is cool by running the tests
       shell: source /etc/profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
 
