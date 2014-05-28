@@ -36,6 +36,7 @@ gem 'rgeo-geojson'
 
 # add devise for authentication
 gem 'devise'
+gem 'omniauth-twitter'
 
 # file attachments
 gem 'paperclip'
