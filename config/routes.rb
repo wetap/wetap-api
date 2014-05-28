@@ -1,6 +1,6 @@
 WetapApi::Application.routes.draw do
   devise_for :users
-  resources :water_fountains, :defaults => {format: :json}
+  resources :water_fountains
   root to: 'admin#index'
 
   if Rails.env.test?
