@@ -40,28 +40,13 @@
         - nodejs
         - libqt4-dev
         - build-essential
-    - name: install rbenv
-      shell: |
-        curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash && \
-        echo 'export RBENV_ROOT="${HOME}/.rbenv"
-        if [ -d "${RBENV_ROOT}" ]; then
-          export PATH="${RBENV_ROOT}/bin:${PATH}"
-          eval "$(rbenv init -)"
-        fi' >> ~/.bash_profile
-    - name: configure rubygems
-      shell: |
-        echo 'install: --no-rdoc --no-ri
-        update: --no-rdoc --no-ri' > ~vagrant/.gemrc
-    - name: install ruby
-      shell: source ~/.bash_profile && cd /vagrant && rbenv install -s executable=/bin/bash
-    - name: installing ruby gems
-      shell: source ~/.bash_profile && cd /vagrant && gem install bundler && bundle executable=/bin/bash
         - imagemagick # paperclip gem resizes images before uploading
         - libmagic-dev # ruby-filemagic gem does mimetype lookups
+        - libqtwebkit-dev # for capybara headless webkit
     - name: installing necessary gems
       shell: source /etc/profile && cd /vagrant && gem install bundler && rbenv rehash && bundle executable=/bin/bash
     - name: set up databases
-      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && bundle exec rake db:setup RAILS_ENV=test executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load executable=/bin/bash
     - name: make sure everything is cool by running the tests
       shell: source /etc/profile && cd /vagrant && bundle exec rspec spec executable=/bin/bash
 
