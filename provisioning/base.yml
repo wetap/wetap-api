@@ -38,11 +38,12 @@
         - screen
         - vim
         - nodejs
-        - libqt4-dev
-        - build-essential
         - imagemagick # paperclip gem resizes images before uploading
         - libmagic-dev # ruby-filemagic gem does mimetype lookups
         - libqtwebkit-dev # for capybara headless webkit
+        - libqt4-dev # for capybara headless webkit
+        - xvfb # for capybara headless webkit
+        - build-essential # for capybara headless webkit
     - name: installing necessary gems
       shell: source /etc/profile && cd /vagrant && gem install bundler && rbenv rehash && bundle executable=/bin/bash
     - name: set up databases
