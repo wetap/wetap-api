@@ -116,7 +116,7 @@ describe WaterFountainsController do
 
       it "is possible to include an image" do
         WaterFountain.should_receive(:generate_image_filename).and_return("my-image-file.jpg")
-        VCR.use_cassette('upload_fountain_image_to_s3', match_requests_on: [:method, :host]) do
+        VCR.use_cassette('upload_fountain_image_to_s3', match_requests_on: [:method]) do
           post :create, {format: 'json', :water_fountain => valid_attributes_with_image}, valid_session
         end
 
