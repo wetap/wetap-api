@@ -18,7 +18,6 @@ weTap.controller('WaterFountainIndexController', ['$scope', 'WaterFountain', fun
 weTap.controller('WaterFountainCreateController', ['$scope', '$location', 'WaterFountain', function ($scope, $location, WaterFountain) {
   $scope.save = function () {
     // Create the waterFountain object to send to the back-end
-    // Indentation here is to clarify the components. Feel free to adjust to suit your OCD tendencies :-)
     var waterFountain = new WaterFountain({
       water_fountain: {
         location: {
@@ -49,8 +48,8 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
   $scope.$watch('waterFountain.id', function () {
     if ($scope.waterFountain.$resolved) {
       $scope.sites.push({
-        latitude: $scope.waterFountain.location.coordinates[1],
-        longitude: $scope.waterFountain.location.coordinates[0],
+        latitude: $scope.waterFountain.latitude,
+        longitude: $scope.waterFountain.longitude,
         options: {title: "Fountain: " + $scope.waterFountain.id}
       });
       $scope.map = {
@@ -62,8 +61,8 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
           minZoom: 3
         },
         center: {
-          latitude: $scope.waterFountain.location.coordinates[1],
-          longitude: $scope.waterFountain.location.coordinates[0]
+          latitude: $scope.waterFountain.latitude,
+          longitude: $scope.waterFountain.longitude
         },
         zoom: 18
       };

@@ -19,8 +19,8 @@
         </tr>
         <tr ng-repeat="item in items">
           <td>{{item.id}}</td>
-          <td>{{item.longitude()}}</td>
-          <td>{{item.latitude()}}</td>
+          <td>{{item.longitude}}</td>
+          <td>{{item.latitude}}</td>
           <td>
             <a href="#/water_fountain/{{item.id}}" class="btn btn-small">Details</a>
             <a ng-click="destroy($index)" href="" class="btn btn-small">Delete</a>
