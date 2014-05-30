@@ -14,7 +14,7 @@ CI
 Dependencies
 ------------
 
-CI must have vagrant and ansible installed
+You must have vagrant and ansible installed in order to run ci
     
     brew install ansible
 
@@ -40,26 +40,21 @@ Make sure you are running at least Vagrant 1.5
 Get yourself a cup of coffee while your machine downloads and builds -
 it should take 5-10 minutes.
 
-
 The app may have changed since the last box snapshot was taken. Make
-sure all gems are installed and the latest database migrations have been
-run.
+sure to reprovision the box to install any missing packages, update your
+ruby environment, etc.
 
-    (localhost)➜ vagrant ssh
-    (vagranthost)➜ cd /vagrant
-    (vagranthost)➜ bundle
-    (vagranthost)➜ bundle exec rake db:migrate
+    (localhost)➜ vagrant provision
 
-Make sure everything looks good on the virtual machine by preparing and
-running the test suite
+Make sure everything is cool by running the tests
 
-    (vagranthost)➜ bundle exec rake db:test:prepare
-    (vagranthost)➜ bundle exec rspec spec
+    (localhost)➜ script/ci
 
 If it passes, start the server
 
+    (localhost)➜ vagrant ssh
+    (vagranthost)➜ cd /vagrant
     (vagranthost)➜ bundle exec rails server
-
 
 Verify that you're good to go!
 
