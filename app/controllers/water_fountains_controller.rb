@@ -86,27 +86,27 @@ class WaterFountainsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_water_fountain
-      @water_fountain = WaterFountain.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_water_fountain
+    @water_fountain = WaterFountain.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def water_fountain_params
-      sanitized_params = params.require(:water_fountain).permit(location: [:type,
-                                                                           {coordinates: []}
-      ])
-      sanitized_params
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def water_fountain_params
+    sanitized_params = params.require(:water_fountain).permit(location: [:type,
+                                                                         {coordinates: []}
+    ])
+    sanitized_params
+  end
 
-    def sanitize_bbox_params(param)
-      bbox_params = param.split(',').map {|v| v.to_f }
-      if bbox_params.length != 4
-        respond_to do |format|
-          format.json { render json: { error: "bbox param is formatted incorrectly" }, status: :bad_request }
-        end
+  def sanitize_bbox_params(param)
+    bbox_params = param.split(',').map {|v| v.to_f }
+    if bbox_params.length != 4
+      respond_to do |format|
+        format.json { render json: { error: "bbox param is formatted incorrectly" }, status: :bad_request }
       end
-      bbox_params
     end
+    bbox_params
+  end
 
 end
