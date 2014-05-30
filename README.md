@@ -11,6 +11,13 @@ CI
 * http://ljs-jenkins.ngrok.com/job/WeTap-API-Pull-Requests/ 
     - new pull-requests and new commits to existing pull requests
 
+Dependencies
+------------
+
+CI must have vagrant and ansible installed
+    
+    brew install ansible
+
 Installing
 ==========
 
