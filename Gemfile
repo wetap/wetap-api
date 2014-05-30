@@ -37,7 +37,6 @@ gem 'devise'
 
 # file attachments
 gem 'paperclip'
-gem 'ruby-filemagic'
 
 # Store file attachments on s3
 gem 'aws-sdk'
