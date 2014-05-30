@@ -41,6 +41,9 @@
   register: ruby_installed
   ignore_errors: yes
 
+- name: rbenv | get the latest ruby_build definitions
+  git: repo=git://github.com/sstephenson/ruby-build.git dest={{rbenv_root}}/plugins/ruby-build update=yes
+
 - name: rbenv | install ruby ruby_version
   shell: source /etc/profile && RBENV_ROOT={{rbenv_root}} rbenv install {{ruby_version}} executable=/bin/bash
   when: ruby_installed|failed
