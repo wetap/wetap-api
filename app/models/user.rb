@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  has_one :auth_token_pair
+
   TEMP_EMAIL = 'change@me.com'
   TEMP_EMAIL_REGEX = /change@me.com/
 
