@@ -1,8 +1,14 @@
 WetapApi::Application.routes.draw do
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resources :water_fountains
-  root to: 'admin#index'
+
+  get 'water_fountains/after_login', to: "water_fountains#after_login"
+  resources :water_fountains do
+  end
+
+  namespace :admin do
+    root to: 'admin#index'
+  end
 
   if Rails.env.test?
     post 'database/reset', to: 'database#reset'
