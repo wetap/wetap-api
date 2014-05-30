@@ -1,5 +1,7 @@
 #message
   - if current_user.present?
     TODO:  Pick up your wetap auth credentials here.
+    = "Public token: #{current_user.auth_token_pair.public_token}"
+    = "Private token: #{current_user.auth_token_pair.private_token}"
   - else
     = link_to  "Please log in", new_user_session_path
