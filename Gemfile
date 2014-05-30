@@ -39,6 +39,9 @@ gem 'rgeo-geojson'
 gem 'devise'
 gem 'omniauth-twitter'
 
+# doorkeeper for authentication ios client on api
+gem 'doorkeeper'
+
 # file attachments
 gem 'paperclip'
 gem 'ruby-filemagic'
