@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: https://wetap-development-images.s3-us-west-2.amazonaws.com/water_fountains/images/000/000/166/original/104a4cd4-e336-43ca-9954-b77c2c3029e3.jpg
+    uri: https://fake-aws-s3-bucket.s3-us-west-2.amazonaws.com/water_fountains/images/000/000/166/original/104a4cd4-e336-43ca-9954-b77c2c3029e3.jpg
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -146,7 +146,7 @@ http_interactions:
   recorded_at: Fri, 23 May 2014 18:25:35 GMT
 - request:
     method: put
-    uri: https://wetap-development-images.s3-us-west-2.amazonaws.com/water_fountains/images/000/000/166/medium/104a4cd4-e336-43ca-9954-b77c2c3029e3.jpg
+    uri: https://fake-aws-s3-bucket.s3-us-west-2.amazonaws.com/water_fountains/images/000/000/166/medium/104a4cd4-e336-43ca-9954-b77c2c3029e3.jpg
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -280,7 +280,7 @@ http_interactions:
   recorded_at: Fri, 23 May 2014 18:25:36 GMT
 - request:
     method: put
-    uri: https://wetap-development-images.s3-us-west-2.amazonaws.com/water_fountains/images/000/000/166/thumb/104a4cd4-e336-43ca-9954-b77c2c3029e3.jpg
+    uri: https://fake-aws-s3-bucket.s3-us-west-2.amazonaws.com/water_fountains/images/000/000/166/thumb/104a4cd4-e336-43ca-9954-b77c2c3029e3.jpg
     body:
       encoding: ASCII-8BIT
       string: !binary |-
