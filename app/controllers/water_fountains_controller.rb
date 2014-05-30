@@ -1,4 +1,5 @@
 class WaterFountainsController < ApplicationController
+  doorkeeper_for :all
   before_action :set_water_fountain, only: [:show, :update, :destroy]
 
   # TODO create api auth mechanism
