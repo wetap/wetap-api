@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 vagrant halt
 vagrant box update
 vagrant up --provision
@@ -11,3 +12,10 @@ cd /vagrant
 bundle exec rake db:test:prepare
 script/ci-rspec &&
 script/ci-cucumber
+END
+
+BUILD_SUCCESS=$?
+
+# Halt VM to avoid conflicts with other builds
+vagrant halt
+exit $BUILD_SUCCESS
