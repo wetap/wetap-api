@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+vagrant halt
+vagrant box update
+vagrant up --provision
+
+vagrant ssh << END
+who -a
+uname -a
+cd /vagrant
+
+bundle exec rake db:test:prepare
+script/ci-rspec &&
+script/ci-cucumber
