@@ -39,7 +39,6 @@
         - vim
         - nodejs
         - imagemagick # paperclip gem resizes images before uploading
-        - libmagic-dev # ruby-filemagic gem does mimetype lookups
         - libqtwebkit-dev # for capybara headless webkit
         - libqt4-dev # for capybara headless webkit
         - xvfb # for capybara headless webkit

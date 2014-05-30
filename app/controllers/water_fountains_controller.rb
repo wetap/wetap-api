@@ -36,7 +36,15 @@ class WaterFountainsController < ApplicationController
       # will be nothing left to read. Giving us the appearance of an empty file.
       decoded_image_file.rewind
 
-      mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
+      # assert the mime-type is jpeg, if the actual file type doesn't match, the
+      # controller will blow up.
+      mime_type = 'image/jpeg'
+
+      # Previously we were ascertaining the mimetype from the contents of the
+      # file using the ruby-filemagic gem but the FileMagic gem does not
+      # install on Heroku. - mjk 2014/5/30
+      # mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
+     
 
       # create a new uploaded file
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
