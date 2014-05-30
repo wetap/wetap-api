@@ -47,6 +47,15 @@ class User < ActiveRecord::Base
     user
   end
 
+  def active_for_authentication?
+    self.ensure_auth_token_pair!
+    super
+  end
 
+  def ensure_auth_token_pair!
+    if self.auth_token_pair.nil?
+      AuthTokenPair.generate_for(self)
+    end
+  end
 
 end
