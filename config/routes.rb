@@ -1,6 +1,7 @@
 WetapApi::Application.routes.draw do
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
+  root to: "home_controller#home"
 
   get 'water_fountains/after_login', to: "water_fountains#after_login"
   resources :water_fountains do
