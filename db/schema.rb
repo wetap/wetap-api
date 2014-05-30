@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530183041) do
+ActiveRecord::Schema.define(version: 20140530221956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "auth_token_pairs", force: true do |t|
+    t.string   "public_token"
+    t.string   "private_token"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
