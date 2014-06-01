@@ -41,6 +41,8 @@ gem 'paperclip'
 # Store file attachments on s3
 gem 'aws-sdk'
 
+gem 'newrelic_rpm'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
