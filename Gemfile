@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
+
 # dotenv should be inluded before any other gems that use environment
 # variables, otherwise those gems will get initialized with the wrong values.
 gem 'dotenv-rails', :groups => [:development, :test]
