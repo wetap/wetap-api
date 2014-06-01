@@ -1,11 +1,7 @@
 class WaterFountain < ActiveRecord::Base
   validates :location, presence: true
 
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
-                            :storage => :s3,
-                            :s3_credentials => S3_CREDENTIALS,
-                            :s3_host_name => "s3-us-west-2.amazonaws.com"
-
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
