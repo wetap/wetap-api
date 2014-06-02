@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_one :auth_token_pair
+  after_save :ensure_auth_token_pair!
 
   TEMP_EMAIL = 'change@me.com'
   TEMP_EMAIL_REGEX = /change@me.com/
@@ -56,6 +57,10 @@ class User < ActiveRecord::Base
     if self.auth_token_pair.nil?
       AuthTokenPair.generate_for(self)
     end
+  end
+
+  def self.find_by_public_token(token)
+    User.joins(:auth_token_pair).find_by("auth_token_pairs.public_token = ?", token)
   end
 
 end

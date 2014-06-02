@@ -1,5 +1,6 @@
 class WaterFountainsController < ApplicationController
   before_action :set_water_fountain, only: [:show, :update, :destroy]
+  before_action :require_authorization_token
 
   # TODO create api auth mechanism
   skip_before_filter :verify_authenticity_token, :only=> [:create, :update, :destroy]
