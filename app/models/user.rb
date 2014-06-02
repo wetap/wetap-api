@@ -60,7 +60,17 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_public_token(token)
-    User.joins(:auth_token_pair).find_by("auth_token_pairs.public_token = ?", token)
+    User.joins(:auth_token_pair).includes(:auth_token_pair).find_by("auth_token_pairs.public_token = ?", token)
+  end
+
+  def public_token
+    return nil unless auth_token_pair.present?
+    return auth_token_pair.public_token
+  end
+
+  def private_token
+    return nil unless auth_token_pair.present?
+    return auth_token_pair.private_token
   end
 
 end
