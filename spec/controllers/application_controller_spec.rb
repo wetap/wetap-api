@@ -12,7 +12,7 @@ describe ApplicationController do
 
     context 'when regular users are signing in' do
       let(:user){ User.new }
-      it { should eq(water_fountains_after_login_path) }
+      it { should eq(api_v1_water_fountains_after_login_path) }
     end
   end
 end

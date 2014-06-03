@@ -1,4 +1,4 @@
-class WaterFountainsController < ApplicationController
+class Api::V1::WaterFountainsController < ApplicationController
   before_action :set_water_fountain, only: [:show, :update, :destroy]
 
   before_filter :authenticate_user_from_token!
@@ -59,7 +59,7 @@ class WaterFountainsController < ApplicationController
 
     respond_to do |format|
       if @water_fountain.save
-        format.json { render action: 'show', status: :created, location: @water_fountain }
+        format.json { render action: 'show', status: :created, location: api_v1_water_fountain_path(@water_fountain) }
       else
         format.json { render json: { error: @water_fountain.errors.full_messages }, status: :unprocessable_entity }
       end

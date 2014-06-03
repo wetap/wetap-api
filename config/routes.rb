@@ -3,8 +3,11 @@ WetapApi::Application.routes.draw do
 
   root to: "home_controller#home"
 
-  get 'water_fountains/after_login', to: "water_fountains#after_login"
-  resources :water_fountains do
+  namespace :api do
+    namespace :v1 do
+      get 'water_fountains/after_login', to: "water_fountains#after_login"
+      resources :water_fountains
+    end
   end
 
   namespace :admin do

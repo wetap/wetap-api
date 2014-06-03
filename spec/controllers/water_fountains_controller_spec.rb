@@ -18,7 +18,7 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe WaterFountainsController do
+describe Api::V1::WaterFountainsController do
   render_views
 
   let(:valid_attributes) { { "location" => {"type" => "Point","coordinates" => [1.0,1.0]} } }
