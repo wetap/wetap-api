@@ -78,8 +78,4 @@ weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$ro
       onMarkerClicked(site);
     };
   });
-
-  $scope.isDefined = function (viewVar) {
-    return angular.isDefined(viewVar);
-  };
 }]);
