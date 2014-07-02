@@ -46,6 +46,10 @@ Then /^I should see '(.*)'$/ do |text|
   expect(page).to have_content(/#{text}/m)
 end
 
+Then /^I should see that I successfully created a fountain$/ do 
+  expect(page).not_to have_content(/New Water Fountain/)
+end
+
 # I *so* want this to work - it would allow tests to use the field name from the model
 #    instead of having to add an un-needed "id" attribute to each field.
 #    This is how they do it in Protractor ...

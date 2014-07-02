@@ -1,8 +1,9 @@
 class Api::V1::WaterFountainsController < ApplicationController
   before_action :set_water_fountain, only: [:show, :update, :destroy]
 
-  before_filter :authenticate_user_from_token!
-  before_filter :authenticate_user!, except: [:index, :show]
+  # No CSRF protection for the API
+  skip_before_filter :verify_authenticity_token
+  before_filter :authenticate_user_from_token!, except: [:index, :show]
 
   # GET /water_fountains
   # GET /water_fountains.json
@@ -44,7 +45,7 @@ class Api::V1::WaterFountainsController < ApplicationController
       # file using the ruby-filemagic gem but the FileMagic gem does not
       # install on Heroku. - mjk 2014/5/30
       # mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
-     
+
 
       # create a new uploaded file
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
@@ -55,7 +56,6 @@ class Api::V1::WaterFountainsController < ApplicationController
 
       @water_fountain.image = uploaded_file
     end
-
 
     respond_to do |format|
       if @water_fountain.save
@@ -97,9 +97,10 @@ class Api::V1::WaterFountainsController < ApplicationController
   def authenticate_user_from_token!
     user_token = params[:public_token].presence
     user       = user_token && User.find_by_public_token(user_token.to_s)
-
     if user
       sign_in user, store: false
+    else
+      render json: { error: "You need to sign in or sign up before continuing." }, status: :unauthorized
     end
   end
 

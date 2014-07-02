@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(User) && resource.admin?
-      admin_root_path
+      admin_path
     else
       request.env['omniauth.origin'] || stored_location_for(resource) || api_v1_water_fountains_after_login_path
     end

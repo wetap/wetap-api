@@ -11,4 +11,4 @@ Feature: As an admin
       And I fill in '111' for 'longitude'
       And I fill in '222' for 'latitude'
       And I click button 'Create'
-      Then I should see '111'
+      Then I should see that I successfully created a fountain

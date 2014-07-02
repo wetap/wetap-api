@@ -7,7 +7,7 @@ describe ApplicationController do
 
     context "when admin users are signing in" do
       let(:user){ User.new({admin: true}) }
-      it { should eq(admin_root_path) }
+      it { should eq(admin_path) }
     end
 
     context 'when regular users are signing in' do
