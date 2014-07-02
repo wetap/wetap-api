@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "WaterFountains" do
   describe "GET /water_fountains.json" do
     it "should return 200" do
-      get water_fountains_path(format: :json)
+      get api_v1_water_fountains_path(format: :json)
       expect(response.status).to be(200)
     end
   end
@@ -16,9 +16,9 @@ describe "WaterFountains" do
     before { user.save }
 
     it "signs in a user for only one request" do
-      post water_fountains_path(format: :json, public_token: public_token, water_fountain: valid_attributes)
+      post api_v1_water_fountains_path(format: :json, public_token: public_token, water_fountain: valid_attributes)
       expect(response.status).to be(201)
-      post water_fountains_path(format: :json, water_fountain: valid_attributes)
+      post api_v1_water_fountains_path(format: :json, water_fountain: valid_attributes)
       expect(response.status).to be(401)
     end
   end
