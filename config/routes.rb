@@ -10,9 +10,7 @@ WetapApi::Application.routes.draw do
     end
   end
 
-  namespace :admin do
-    root to: 'admin#index'
-  end
+  get :admin, to: 'admin#index'
 
   if Rails.env.test?
     post 'database/reset', to: 'database#reset'

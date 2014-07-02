@@ -19,7 +19,7 @@ And(/^I am logged in as an admin$/) do
 end
 
 When(/^I go to the fountain list page$/) do
-  visit '/'
+  visit '/admin'
 end
 
 Then(/^I should see a list of fountains$/) do
@@ -31,7 +31,7 @@ Then(/^I should see the login page$/) do
 end
 
 When(/^I go to the new fountain page$/) do
-  visit '#/water_fountain/new'
+  visit '/admin/#/water_fountain/new'
 end
 
 And /^I fill in '(.*)' for '(.*)'$/ do |value, field|
