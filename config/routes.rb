@@ -5,13 +5,13 @@ WetapApi::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get 'water_fountains/after_login', to: "water_fountains#after_login"
       resources :water_fountains
     end
   end
 
   get :admin, to: 'admin#index'
 
+  get "auth_token_pairs/me", to: "auth_token_pairs#me"
   if Rails.env.test?
     post 'database/reset', to: 'database#reset'
   end

@@ -87,11 +87,6 @@ class Api::V1::WaterFountainsController < ApplicationController
     end
   end
 
-  # GET /after_login
-  # GET /after_login.json
-  def after_login
-  end
-
   private
 
   def authenticate_user_from_token!

@@ -1,6 +1,1 @@
 %h1 Welcome to Wetap
-%p
-  - if current_user
-    = link_to  "Fetch your wetap auth credentials here:", api_v1_water_fountains_after_login_path
-  - else
-    = link_to  "Please login to enjoy our water fountain API", new_user_session_path
