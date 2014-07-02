@@ -13,12 +13,14 @@
         <!-- This will create a row for every item within our items object -->
         <tr>
           <th>Id</th>
+          <th>User</th>
           <th>Longitude</th>
           <th>Latitude</th>
           <th>Actions</th>
         </tr>
         <tr ng-repeat="item in items">
           <td>{{item.id}}</td>
+          <td>{{item.user_id}}</td>
           <td>{{item.longitude}}</td>
           <td>{{item.latitude}}</td>
           <td>

@@ -25,6 +25,7 @@ class Api::V1::WaterFountainsController < ApplicationController
   # POST /water_fountains.json
   def create
     @water_fountain = WaterFountain.new(water_fountain_params)
+    @water_fountain.user = current_user
 
     # check if image was sent
     if params[:water_fountain] && params[:water_fountain][:image]
