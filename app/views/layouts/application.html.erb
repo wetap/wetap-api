@@ -3,6 +3,8 @@
   <head>
     <title>WeTap</title>
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "iphone", :media => "only screen and (max-device-width: 480px)"  %>
+
     <script src='//maps.googleapis.com/maps/api/js?sensor=false&language=en'></script>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
