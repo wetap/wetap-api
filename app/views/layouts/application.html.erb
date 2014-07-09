@@ -8,20 +8,6 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="navbar navbar-static-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="/#/">WeTap</a>
-          <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-              <li><%= link_to "Logout", destroy_user_session_path %></li>
-            <% else %>
-              <li><%= link_to "Sign in", new_user_session_path %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
     <div class="container">
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
