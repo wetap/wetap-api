@@ -26,15 +26,13 @@ describe Api::V1::WaterFountainsController do
     valid_attributes.merge({ "image" => Base64.encode64(File.read(Rails.root + 'spec/fixtures/example_water_fountain.jpg')) })
   end
   let(:private_attribute_names) { ["data_source", "data_source_id", "import_source"] }
-  let(:user) { User.new(email: "test@foo.com", password:"12345678") }
+  let!(:user) { User.create(email: "test@foo.com", password:"12345678") }
   let(:public_token) { user.public_token }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # WaterFountainsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-
-  before { user.save }
 
   describe "GET index" do
     it "assigns all water_fountains as @water_fountains" do
