@@ -91,7 +91,8 @@ describe Api::V1::WaterFountainsController do
           type: "Point",
           coordinates: [1.0, 1.0]
         },
-        image_url: nil
+        image_url: nil,
+        user_id: nil
       }
 
       # Comparing dictionaries allows us to see which fields are mismatchd
@@ -129,6 +130,7 @@ describe Api::V1::WaterFountainsController do
           id: water_fountain.id,
           created_at: water_fountain.created_at,
           updated_at: water_fountain.updated_at,
+          user_id: water_fountain.user_id,
           location: {
             type: "Point",
             coordinates: [1.0, 1.0]
