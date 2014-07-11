@@ -27,7 +27,7 @@ Then(/^I should see a list of fountains$/) do
 end
 
 Then(/^I should see the login page$/) do
-  expect(page).to have_content('You need to sign in')
+  expect(page).to have_content('WeTap Sign in')
 end
 
 When(/^I go to the new fountain page$/) do
