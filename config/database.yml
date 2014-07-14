@@ -2,7 +2,7 @@ development:
   adapter: postgis
   encoding: unicode
   postgis_extension: true
-  schema_search_path: public,postgis
+  schema_search_path: public
   database: wetap-api_development
   pool: 5
 
@@ -13,7 +13,7 @@ test: &test
   adapter: postgis
   encoding: unicode
   postgis_extension: true
-  schema_search_path: public,postgis
+  schema_search_path: public
   database: wetap-api_test
   pool: 5
 

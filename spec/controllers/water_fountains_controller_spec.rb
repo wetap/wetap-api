@@ -18,17 +18,16 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe WaterFountainsController do
+describe Api::V1::WaterFountainsController do
   render_views
 
-  # This should return the minimal set of attributes required to create a valid
-  # WaterFountain. As you add validations to WaterFountain, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) { { "location" => {"type" => "Point","coordinates" => [1.0,1.0]} } }
   let(:valid_attributes_with_image) do
     valid_attributes.merge({ "image" => Base64.encode64(File.read(Rails.root + 'spec/fixtures/example_water_fountain.jpg')) })
   end
   let(:private_attribute_names) { ["data_source", "data_source_id", "import_source"] }
+  let!(:user) { User.create(email: "test@foo.com", password:"12345678") }
+  let(:public_token) { user.public_token }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -90,7 +89,8 @@ describe WaterFountainsController do
           type: "Point",
           coordinates: [1.0, 1.0]
         },
-        image_url: nil
+        image_url: nil,
+        user_id: nil
       }
 
       # Comparing dictionaries allows us to see which fields are mismatchd
@@ -103,12 +103,12 @@ describe WaterFountainsController do
     describe "with valid params" do
       it "creates a new WaterFountain" do
         expect {
-          post :create, {format: 'json', :water_fountain => valid_attributes}, valid_session
+          post :create, {format: 'json', public_token: public_token, :water_fountain => valid_attributes}, valid_session
         }.to change(WaterFountain, :count).by(1)
       end
 
       it "assigns a newly created water_fountain as @water_fountain" do
-        post :create, {format: 'json', :water_fountain => valid_attributes}, valid_session
+        post :create, {format: 'json', public_token: public_token, :water_fountain => valid_attributes}, valid_session
         water_fountain = assigns(:water_fountain)
         expect(water_fountain).to be_a(WaterFountain)
         expect(water_fountain).to be_persisted
@@ -117,7 +117,7 @@ describe WaterFountainsController do
       it "is possible to include an image" do
         WaterFountain.should_receive(:generate_image_filename).and_return("my-image-file.jpg")
         VCR.use_cassette('upload_fountain_image_to_s3', match_requests_on: [:method]) do
-          post :create, {format: 'json', :water_fountain => valid_attributes_with_image}, valid_session
+          post :create, {format: 'json', public_token: public_token, :water_fountain => valid_attributes_with_image}, valid_session
         end
 
         water_fountain = assigns(:water_fountain)
@@ -128,6 +128,7 @@ describe WaterFountainsController do
           id: water_fountain.id,
           created_at: water_fountain.created_at,
           updated_at: water_fountain.updated_at,
+          user_id: water_fountain.user_id,
           location: {
             type: "Point",
             coordinates: [1.0, 1.0]
@@ -147,13 +148,13 @@ describe WaterFountainsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved water_fountain as @water_fountain" do
         # Trigger the behavior that occurs when invalid params are submitted
-        post :create, {format: 'json', :water_fountain => { "location" => "invalid value" }}, valid_session
+        post :create, {format: 'json', public_token: public_token, :water_fountain => { "location" => "invalid value" }}, valid_session
         expect(assigns(:water_fountain)).to be_a_new(WaterFountain)
       end
 
       it "returns an error" do
         # Trigger the behavior that occurs when invalid params are submitted
-        post :create, {format: 'json', :water_fountain => { "location" => "invalid value" }}, valid_session
+        post :create, {format: 'json', public_token: public_token, :water_fountain => { "location" => "invalid value" }}, valid_session
         expect(response.code).to eq("422")
         expect(JSON.parse(response.body)['error']).not_to be_empty
       end
@@ -171,18 +172,18 @@ describe WaterFountainsController do
 
         # see the WaterFountain's #location getter and setter to see why this is nil here
         expect_any_instance_of(WaterFountain).to receive(:update).with({ "location" => nil })
-        put :update, {format: 'json', :id => water_fountain.to_param, :water_fountain => { "location" => "" }}, valid_session
+        put :update, {format: 'json', public_token: public_token, :id => water_fountain.to_param, :water_fountain => { "location" => "" }}, valid_session
       end
 
       it "assigns the requested water_fountain as @water_fountain" do
         water_fountain = WaterFountain.create! valid_attributes
-        put :update, {format: 'json', :id => water_fountain.to_param, :water_fountain => valid_attributes}, valid_session
+        put :update, {format: 'json', public_token: public_token, :id => water_fountain.to_param, :water_fountain => valid_attributes}, valid_session
         expect(assigns(:water_fountain)).to eq(water_fountain)
       end
 
       it "responds with success/no body" do
         water_fountain = WaterFountain.create! valid_attributes
-        put :update, {format: 'json', :id => water_fountain.to_param, :water_fountain => valid_attributes}, valid_session
+        put :update, {format: 'json', public_token: public_token, :id => water_fountain.to_param, :water_fountain => valid_attributes}, valid_session
         expect(response.code).to eq("204")
       end
     end
@@ -190,14 +191,14 @@ describe WaterFountainsController do
     describe "with invalid params" do
       it "assigns the water_fountain as @water_fountain" do
         water_fountain = WaterFountain.create! valid_attributes
-        put :update, {format: 'json', :id => water_fountain.to_param, :water_fountain => { "location" => "invalid value" }}, valid_session
+        put :update, {format: 'json', public_token: public_token, :id => water_fountain.to_param, :water_fountain => { "location" => "invalid value" }}, valid_session
 
         expect(assigns(:water_fountain)).to eq(water_fountain)
       end
 
       it "should render validation errors JSON" do
         water_fountain = WaterFountain.create! valid_attributes
-        put :update, {format: 'json', :id => water_fountain.to_param, :water_fountain => { "location" => "invalid value" }}, valid_session
+        put :update, {format: 'json', public_token: public_token, :id => water_fountain.to_param, :water_fountain => { "location" => "invalid value" }}, valid_session
 
         expect(response.code).to eq("422")
         expect(JSON.parse(response.body)['error']).not_to be_empty
@@ -209,13 +210,13 @@ describe WaterFountainsController do
     it "destroys the requested water_fountain" do
       water_fountain = WaterFountain.create! valid_attributes
       expect {
-        delete :destroy, {format: 'json', :id => water_fountain.to_param}, valid_session
+        delete :destroy, {format: 'json', public_token: public_token, :id => water_fountain.to_param}, valid_session
       }.to change(WaterFountain, :count).by(-1)
     end
 
     it "responds with success/no body" do
       water_fountain = WaterFountain.create! valid_attributes
-      delete :destroy, {format: 'json', :id => water_fountain.to_param}, valid_session
+      delete :destroy, {format: 'json', public_token: public_token, :id => water_fountain.to_param}, valid_session
       expect(response.code).to eq("204")
     end
   end

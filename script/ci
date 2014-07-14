@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-vagrant halt
+if [ "`/usr/bin/whoami`" = "jenkins" ]; then
+  echo "INFO: Copying .env into workspace"
+  cp ~/.wetap-api-env .env
+fi
+
+echo "INFO: Kill any running wetap virtual machines."
+VBoxManage list runningvms | grep wetap | cut -f1 -d " "| sed 's/"//g' | while read machine_uuid; do VBoxManage controlvm $machine_uuid poweroff; done
+
 vagrant box update
 vagrant up --provision
 

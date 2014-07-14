@@ -1,8 +1,9 @@
-class WaterFountainsController < ApplicationController
+class Api::V1::WaterFountainsController < ApplicationController
   before_action :set_water_fountain, only: [:show, :update, :destroy]
 
-  # TODO create api auth mechanism
-  skip_before_filter :verify_authenticity_token, :only=> [:create, :update, :destroy]
+  # No CSRF protection for the API
+  skip_before_filter :verify_authenticity_token
+  before_filter :authenticate_user_from_token!, except: [:index, :show]
 
   # GET /water_fountains
   # GET /water_fountains.json
@@ -24,6 +25,7 @@ class WaterFountainsController < ApplicationController
   # POST /water_fountains.json
   def create
     @water_fountain = WaterFountain.new(water_fountain_params)
+    @water_fountain.user = current_user
 
     # check if image was sent
     if params[:water_fountain] && params[:water_fountain][:image]
@@ -44,7 +46,7 @@ class WaterFountainsController < ApplicationController
       # file using the ruby-filemagic gem but the FileMagic gem does not
       # install on Heroku. - mjk 2014/5/30
       # mime_type = FileMagic.new(FileMagic::MAGIC_MIME).file(decoded_image_file.path)
-     
+
 
       # create a new uploaded file
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
@@ -56,10 +58,9 @@ class WaterFountainsController < ApplicationController
       @water_fountain.image = uploaded_file
     end
 
-
     respond_to do |format|
       if @water_fountain.save
-        format.json { render action: 'show', status: :created, location: @water_fountain }
+        format.json { render action: 'show', status: :created, location: api_v1_water_fountain_path(@water_fountain) }
       else
         format.json { render json: { error: @water_fountain.errors.full_messages }, status: :unprocessable_entity }
       end
@@ -88,6 +89,17 @@ class WaterFountainsController < ApplicationController
   end
 
   private
+
+  def authenticate_user_from_token!
+    user_token = params[:public_token].presence
+    user       = user_token && User.find_by_public_token(user_token.to_s)
+    if user
+      sign_in user, store: false
+    else
+      render json: { error: "You need to sign in or sign up before continuing." }, status: :unauthorized
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_water_fountain
       @water_fountain = WaterFountain.find(params[:id])

@@ -1,8 +1,17 @@
 WetapApi::Application.routes.draw do
-  devise_for :users
-  resources :water_fountains
-  root to: 'admin#index'
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
+  root to: "home_controller#home"
+
+  namespace :api do
+    namespace :v1 do
+      resources :water_fountains
+    end
+  end
+
+  get :admin, to: 'admin#index'
+
+  get "auth_token_pairs/me", to: "auth_token_pairs#me"
   if Rails.env.test?
     post 'database/reset', to: 'database#reset'
   end

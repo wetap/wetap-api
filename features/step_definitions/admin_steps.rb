@@ -19,7 +19,7 @@ And(/^I am logged in as an admin$/) do
 end
 
 When(/^I go to the fountain list page$/) do
-  visit '/'
+  visit '/admin'
 end
 
 Then(/^I should see a list of fountains$/) do
@@ -27,11 +27,11 @@ Then(/^I should see a list of fountains$/) do
 end
 
 Then(/^I should see the login page$/) do
-  expect(page).to have_content('You need to sign in')
+  expect(page).to have_content('WeTap Sign in')
 end
 
 When(/^I go to the new fountain page$/) do
-  visit '#/water_fountain/new'
+  visit '/admin/#/water_fountain/new'
 end
 
 And /^I fill in '(.*)' for '(.*)'$/ do |value, field|
@@ -44,6 +44,10 @@ end
 
 Then /^I should see '(.*)'$/ do |text|
   expect(page).to have_content(/#{text}/m)
+end
+
+Then /^I should see that I successfully created a fountain$/ do 
+  expect(page).not_to have_content(/New Water Fountain/)
 end
 
 # I *so* want this to work - it would allow tests to use the field name from the model
