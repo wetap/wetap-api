@@ -1,6 +1,8 @@
-.alert-danger {
-  display:none;
-}
-body {
-  text-align: center;
+@media only screen and (max-device-width: 480px) {
+  .alert-danger {
+    display:none;
+  }
+  body {
+    text-align: center;
+  }
 }
