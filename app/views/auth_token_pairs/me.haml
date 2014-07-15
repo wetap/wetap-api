@@ -4,6 +4,6 @@
     = "Public token: #{current_user.public_token}"
     = "Private token: #{current_user.private_token}"
     :javascript
-      = render 'auth_token_pair', public_token: current_user.public_token
+      #{render 'auth_token_pair.js', public_token: current_user.public_token}
   - else
     = link_to  "Please log in", new_user_session_path
