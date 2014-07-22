@@ -1,8 +1,18 @@
 @media only screen and (max-device-width: 480px) {
+
   .alert-danger {
     display:none;
   }
   body {
+    color: white;
     text-align: center;
+    background-color: rgb(10, 168, 228);
+  }
+  input[type="email"], input[type="password"]
+  {
+    background-color: #3bb9e9;
+    color: #979797;
+    height: 28px;
+    border: none;
   }
 }
