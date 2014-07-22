@@ -62,3 +62,22 @@ Verify that you're good to go!
     # empty JSON list.
     (localhost)➜ curl localhost:4000/water_fountains.json
     []
+
+Start Server for Local Calabash iOS Testing
+==========
+
+```
+$ vagrant up
+$ vagrant ssh
+$ cd /vagrant
+$ RAILS_ENV=test bundle exec rake db:test:prepare db:seed
+$ RAILS_ENV=test bundle exec rails server
+```
+
+If you encounter problems standing up the server locally, do the following:
+
+```
+$ VBoxManage list runningvms | grep wetap | cut -f1 -d " "| sed 's/"//g' | while read machine_uuid; do VBoxManage controlvm $machine_uuid poweroff; done
+```
+
+and in Activity Monitor, search for VBox and kill all active processes.
