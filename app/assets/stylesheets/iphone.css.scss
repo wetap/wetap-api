@@ -1,3 +1,10 @@
+$wetap-blue: rgb(10, 168, 228);
+$wetap-light-blue: rgb(59, 185, 233);
+$wetap-highlight-blue: rgb(157, 220, 244);
+$wetap-dark-blue: rgb(0, 53, 109);
+
+
+
 @media only screen and (max-device-width: 480px) {
 
   .alert-danger {
@@ -6,13 +13,35 @@
   body {
     color: white;
     text-align: center;
-    background-color: rgb(10, 168, 228);
+    background-color: $wetap-blue;
   }
-  input[type="email"], input[type="password"]
-  {
-    background-color: #3bb9e9;
+
+  input{
+    font-size: 1.2em;
+  }
+
+  input[type="email"], input[type="password"]{
+    background-color: $wetap-light-blue;
     color: #979797;
-    height: 28px;
     border: none;
+    position: relative;
+    height: 3em;
+    padding-left: 15px;
+    box-sizing: border-box;
+    width: 100%;
   }
+
+  input[type="submit"]{
+    background-color: $wetap-dark-blue;
+    color: white;
+    border: none;
+    width: 50%;
+    height: 40px;
+    border-radius: 4px;
+  }
+
+  input::-webkit-input-placeholder {
+    color: $wetap-highlight-blue;
+  }
+
 }
