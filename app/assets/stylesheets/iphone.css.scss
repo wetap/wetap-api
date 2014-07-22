@@ -25,8 +25,9 @@ $wetap-dark-blue: rgb(0, 53, 109);
     color: #979797;
     border: none;
     position: relative;
-    height: 3em;
+    height: 44.5px;
     padding-left: 15px;
+    margin-bottom: 5px;
     box-sizing: border-box;
     width: 100%;
   }
@@ -35,13 +36,32 @@ $wetap-dark-blue: rgb(0, 53, 109);
     background-color: $wetap-dark-blue;
     color: white;
     border: none;
-    width: 50%;
-    height: 40px;
+    width: 73%;
+    height: 45px;
     border-radius: 4px;
+    margin-top: 14px;
   }
 
   input::-webkit-input-placeholder {
     color: $wetap-highlight-blue;
+  }
+  a:link, a:visited{
+    color:white;
+  }
+
+  #wetap-accounts-header{
+    margin-top: 30px;
+    margin-bottom: 22px;
+
+    img{
+      margin-bottom:25px;
+    }
+
+    .path-alternative{
+      padding: 15px;
+      font-size: 1.2em;
+
+    }
   }
 
 }
