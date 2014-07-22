@@ -1,5 +1,4 @@
-%h2.hidden-phone Sign in
-
+= render("devise/shared/logo_header", page_title: "Sign in")
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   %div
     = f.label :email
