@@ -35,7 +35,6 @@ div {
 }
 
 #error_explanation {
-  width: 450px;
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 0;
@@ -50,6 +49,7 @@ div {
     margin-bottom: 0px;
     background-color: #c00;
     color: #fff;
+    line-height: 20px;
   }
   ul li {
     font-size: 12px;
