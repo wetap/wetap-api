@@ -1,1 +1,1 @@
-json.extract! @water_fountain, :id, :created_at, :updated_at, :location, :image_url, :user_id
+json.partial! 'api/v1/water_fountains/water_fountain', water_fountain: @water_fountain

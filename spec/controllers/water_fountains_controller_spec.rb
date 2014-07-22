@@ -90,7 +90,8 @@ describe Api::V1::WaterFountainsController do
           coordinates: [1.0, 1.0]
         },
         image_url: nil,
-        user_id: nil
+        user_id: nil,
+        url: "http://test.host/api/v1/water_fountains/#{water_fountain.id}.json"
       }
 
       # Comparing dictionaries allows us to see which fields are mismatchd
@@ -132,7 +133,8 @@ describe Api::V1::WaterFountainsController do
           location: {
             type: "Point",
             coordinates: [1.0, 1.0]
-          }
+          },
+          url: "http://test.host/api/v1/water_fountains/#{water_fountain.id}.json"
         }
         response_body = JSON.parse(response.body)
 

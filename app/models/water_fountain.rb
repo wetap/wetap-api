@@ -29,9 +29,9 @@ class WaterFountain < ActiveRecord::Base
     RGeo::GeoJSON.encode(self[:location])
   end
 
-  def image_url
+  def thumbnail_url
     return nil if image.blank?
-    image.url
+    image.url(:thumb)
   end
 
   def self.generate_image_filename
