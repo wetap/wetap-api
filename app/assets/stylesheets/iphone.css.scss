@@ -50,11 +50,24 @@ $wetap-dark-blue: rgb(0, 53, 109);
   }
 
   #wetap-accounts-header{
-    margin-top: 30px;
-    margin-bottom: 22px;
 
-    img{
-      margin-bottom:25px;
+    // Iphone 3.5 inch
+    // selectors in nested media queries in scss are rooted in the most recent query:
+    @media only screen and (device-height: 480px){
+      margin-top: 18px;
+      margin-bottom: 11px;
+      img{
+        margin-bottom:15px;
+      }
+    }
+
+    // Iphone 4 inch
+    @media only screen and (device-height: 568px){
+      margin-top: 30px;
+      margin-bottom: 22px;
+      img{
+        margin-bottom:25px;
+      }
     }
 
     .path-alternative{
