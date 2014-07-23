@@ -15,4 +15,10 @@
   %div
     = f.submit "Sign in"
 
-= render "devise/shared/links"
+#social-login-group
+  = link_to("", "", id: "facebook-login", class: "social-login")
+  = link_to("", "", id: "twitter-login", class: "social-login")
+  = link_to("", "", id: "google-plus-login", class: "social-login")
+
+#account-misc-links
+  = render "devise/shared/links"
