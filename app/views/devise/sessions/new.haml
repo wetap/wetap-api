@@ -15,10 +15,10 @@
   %div
     = f.submit "Sign in"
 
-#social-login-group
-  = link_to("", "", id: "facebook-login", class: "social-login")
-  = link_to("", "", id: "twitter-login", class: "social-login")
-  = link_to("", "", id: "google-plus-login", class: "social-login")
+- # TODO support more than one omniauth provider and remove this style
+#social-login-group{style: "width: #{resource_class.omniauth_providers.length * 32}px"}
+  - resource_class.omniauth_providers.each do |provider|
+    = link_to "", omniauth_authorize_path(resource_name, provider), id: "#{provider.to_s}-login", class: "social-login"
 
 #account-misc-links
   = render "devise/shared/links"
