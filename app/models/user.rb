@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   TEMP_EMAIL = 'change@me.com'
   TEMP_EMAIL_REGEX = /change@me.com/
 
-  devise :database_authenticatable, :registerable, :confirmable, :lockable,
+  devise :database_authenticatable, :registerable, :lockable,
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
@@ -35,7 +35,6 @@ class User < ActiveRecord::Base
           email: email ? email : TEMP_EMAIL,
           password: Devise.friendly_token[0,20]
         )
-        user.skip_confirmation!
         user.save!
       end
     end
