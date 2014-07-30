@@ -1,4 +1,4 @@
-= render("devise/shared/logo_header", title: "Enter your email address to resend confirmation instructions", sub_title: "")
+= render("devise/shared/logo_header", title: "Resend Confirmation", sub_title: "Enter your email address to resend confirmation instructions")
 
 = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
   = devise_error_messages!

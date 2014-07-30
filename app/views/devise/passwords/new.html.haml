@@ -1,4 +1,4 @@
-= render('devise/shared/logo_header', title: 'Enter your email address to reset your password', sub_title: '')
+= render('devise/shared/logo_header', title: 'Password Reset', sub_title: 'Enter your email address<br/> to reset your password'.html_safe)
 
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   = devise_error_messages!
