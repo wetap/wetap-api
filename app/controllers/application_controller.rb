@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if resource.is_a?(User) && resource.admin?
       admin_root_path
     else
-      request.env['omniauth.origin'] || stored_location_for(resource) || auth_token_pairs_me_path
+      stored_location_for(resource) || auth_token_pairs_me_path
     end
   end
 
