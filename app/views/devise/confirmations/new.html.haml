@@ -1,0 +1,10 @@
+= render("devise/shared/logo_header", title: "Enter your email address to resend confirmation instructions", sub_title: "")
+
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+  = devise_error_messages!
+
+  = f.email_field :email, autofocus: true, placeholder: "Email Address"
+
+  = f.submit "Resend confirmation"
+
+= render "devise/shared/links"
