@@ -1,16 +1,9 @@
 #wetap-accounts-header
 
   %h2.hidden-phone
-    = page_title
+    = title
 
   #logo.visible-phone
     = image_tag("wetap/app-icon-512x512.png")
-
-  - unless controller_name == 'passwords'
-    - unless controller_name == 'sessions'
-      = link_to "Or, Sign in", new_session_path(resource_name), class: "path-alternative"
-      %br
-
-    - unless controller_name == 'registrations'
-      = link_to "Or, create an account", new_registration_path(resource_name), class: "path-alternative"
-      %br
+    %br
+    = sub_title

@@ -1,4 +1,4 @@
-= render("devise/shared/logo_header", page_title: "Sign in")
+= render("devise/shared/logo_header", title: "Sign up", sub_title: link_to("Or, Sign in", new_session_path(resource_name), class: "path-alternative"))
 
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = devise_error_messages!

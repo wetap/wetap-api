@@ -1,4 +1,4 @@
-= render("devise/shared/logo_header", page_title: "Enter your email address to resend confirmation instructions")
+= render('devise/shared/logo_header', title: 'Enter your email address to reset your password', sub_title: '')
 
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   = devise_error_messages!
