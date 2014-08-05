@@ -1,8 +1,9 @@
 class AuthTokenPairsController < ApplicationController
 
-  before_filter :authenticate_user!
-
   def me
+    if !user_signed_in?
+      return redirect_to user_session_path
+    end
   end
 
 end
