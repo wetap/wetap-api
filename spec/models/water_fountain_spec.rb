@@ -53,7 +53,7 @@ describe WaterFountain do
   describe "#flow" do
     subject { FactoryGirl.build(:water_fountain, flow: flow) }
     context "when flow is too low" do
-      let(:flow) { "too low" }
+      let(:flow) { "low" }
       it { should be_valid }
     end
     context "when flow is good" do
@@ -61,7 +61,7 @@ describe WaterFountain do
       it { should be_valid }
     end
     context "when flow is too high" do
-      let(:flow) { "too high" }
+      let(:flow) { "high" }
       it { should be_valid }
     end
     context "when flow is blank" do
