@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702232757) do
+ActiveRecord::Schema.define(version: 20140805190425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,8 +73,12 @@ ActiveRecord::Schema.define(version: 20140702232757) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.spatial  "location",           limit: {:srid=>4326, :type=>"point"}
     t.integer  "user_id"
+    t.spatial  "location",           limit: {:srid=>4326, :type=>"point"}
+    t.boolean  "working"
+    t.boolean  "dog_bowl"
+    t.boolean  "filling_station"
+    t.string   "flow"
   end
 
   add_index "water_fountains", ["data_source", "data_source_id"], :name => "index_water_fountains_on_data_source_and_data_source_id", :unique => true

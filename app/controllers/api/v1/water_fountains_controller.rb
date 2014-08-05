@@ -108,8 +108,11 @@ class Api::V1::WaterFountainsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def water_fountain_params
       sanitized_params = params.require(:water_fountain).permit(location: [:type,
-                                                                           {coordinates: []}
-      ])
+                                                                           {coordinates: []}],
+                                                                works: nil,
+                                                                filling_station: nil,
+                                                                dog_bowl: nil,
+                                                                flow: nil)
       sanitized_params
     end
 
