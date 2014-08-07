@@ -1,0 +1,11 @@
+#!/bin/sh
+# Deploys migrations in maintenance mode
+set -e
+set -x
+MY_DIR=`dirname $0`
+
+export SOURCE=master
+export REMOTE=production
+
+$MY_DIR/_deploy.sh
+

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Run when setting up a new instance of wetap on heroku
+
+set -e
+set -x
+
+if [ -z $REMOTE ]
+then
+  echo "must set REMOTE"
+  exit 1
+fi
+
+REMOTE_ARG="--remote $REMOTE"
+
+heroku apps:create wetap-$REMOTE $REMOTE_ARG
+
+echo "WARNING: this database costs money, but we need it to use postgis."
+heroku addons:add heroku-postgresql:standard-yanari $REMOTE_ARG
+heroku addons:add pgbackups $REMOTE_ARG
+heroku addons:add newrelic:stark $REMOTE_ARG
+heroku addons:add sendgrid $REMOTE_ARG
+heroku addons:add papertrail $REMOTE_ARG
+heroku config:set NEW_RELIC_APP_NAME="WeTap API ($REMOTE)"
+
+echo "INFO: Don't forget to set any environment variables from your .env using 'heroku config:set'"
