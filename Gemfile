@@ -60,6 +60,7 @@ group :development, :test do
   gem 'ci_reporter'
   gem 'cucumber-rails', :require => false
   gem 'capybara-webkit'
+  gem 'factory_girl_rails'
 end
 
 group :test do

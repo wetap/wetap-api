@@ -12,7 +12,11 @@ WaterFountain.create!("location" => { "type" => "Point",
 
 # San Francisco Museum of the African Diaspora
 WaterFountain.create!("location" => { "type" => "Point",
-                                      "coordinates" => [-122.4014, 37.7858] })
+                                      "coordinates" => [-122.4014, 37.7858] },
+                     "working" => true,
+                     "filling_station" => true,
+                     "dog_bowl" => false,
+                     "flow" => "good")
 
 
 # Ian's house

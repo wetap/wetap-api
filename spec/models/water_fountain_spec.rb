@@ -50,6 +50,30 @@ describe WaterFountain do
     end
   end
 
+  describe "#flow" do
+    subject { FactoryGirl.build(:water_fountain, flow: flow) }
+    context "when flow is too low" do
+      let(:flow) { "low" }
+      it { should be_valid }
+    end
+    context "when flow is good" do
+      let(:flow) { "good" }
+      it { should be_valid }
+    end
+    context "when flow is too high" do
+      let(:flow) { "high" }
+      it { should be_valid }
+    end
+    context "when flow is blank" do
+      let(:flow) { nil }
+      it { should be_valid }
+    end
+    context "when setting any other value" do
+      let(:flow) { "oops" }
+      it { should_not be_valid }
+    end
+  end
+
   describe ".bounded_by" do
     let!(:f1) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[1.0, 1.0]}})}
     let!(:f2) { WaterFountain.create({:location => {"type"=>"Point", "coordinates"=>[2.0, 2.0]}})}
@@ -93,7 +117,7 @@ describe WaterFountain do
       it{ should be_true }
     end
   end
-  
+
   describe ".generate_image_filename" do
     subject { WaterFountain.generate_image_filename }
     before { SecureRandom.should_receive(:uuid).and_return("totally-random") }
