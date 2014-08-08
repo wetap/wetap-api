@@ -41,6 +41,9 @@ gem 'rgeo-geojson'
 gem 'devise'
 gem 'omniauth-twitter'
 
+# authorization
+gem 'cancan'
+
 # file attachments
 gem 'paperclip'
 

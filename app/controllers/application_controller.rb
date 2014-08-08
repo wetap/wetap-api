@@ -6,9 +6,17 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(User) && resource.admin?
-      admin_root_path
+      admin_path
     else
       stored_location_for(resource) || auth_token_pairs_me_path
+    end
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    if current_user
+      head :forbidden
+    else
+      redirect_to sign_in_url
     end
   end
 

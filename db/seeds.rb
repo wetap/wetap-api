@@ -30,6 +30,7 @@ AuthTokenPair.create!({"public_token" => "fake-public-token",
 
 User.create!("email" => "admin@wetap-api.com",
              "password" => "anyanyany",
+             "admin" => true,
              "confirmation_token" => nil,
              "confirmed_at" => "Mon, 07 Jul 2014 20:14:00 UTC +00:00",
              "updated_at" => "Mon, 07 Jul 2014 20:14:00 UTC +00:00")

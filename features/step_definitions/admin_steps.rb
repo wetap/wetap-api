@@ -11,10 +11,10 @@ Given(/^there are some fountains$/) do
 end
 
 And(/^I am logged in as an admin$/) do
-  User.create!("email" => "test@example.com", "password" => "anyanyany")
+  admin_user = FactoryGirl.create(:admin_user)
   visit(new_user_session_path)
-  fill_in('user_email', :with => 'test@example.com')
-  fill_in('user_password', :with => 'anyanyany')
+  fill_in('user_email', :with => admin_user.email)
+  fill_in('user_password', :with => admin_user.password)
   within("#new_user") { click_on "Sign in" }
 end
 
