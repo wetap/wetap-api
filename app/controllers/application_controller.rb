@@ -5,11 +5,7 @@ class ApplicationController < ActionController::Base
   respond_to :json
 
   def after_sign_in_path_for(resource)
-    if resource.is_a?(User) && resource.admin?
-      admin_path
-    else
-      stored_location_for(resource) || auth_token_pairs_me_path
-    end
+    stored_location_for(resource) || auth_token_pairs_me_path
   end
 
   rescue_from CanCan::AccessDenied do |exception|
