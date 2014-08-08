@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    if current_user
+      head :forbidden
+    else
+      redirect_to sign_in_url
+    end
+  end
+
 end
