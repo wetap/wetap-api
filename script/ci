@@ -17,6 +17,11 @@ uname -a
 cd /vagrant
 
 bundle exec rake db:test:prepare
+
+# create a junit.xml file so jenkins doesn't fail because a file is missing
+mkdir -p ci-reports
+touch ci-reports/junit.xml
+
 script/ci-rspec &&
 script/ci-cucumber
 END

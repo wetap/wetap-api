@@ -3,10 +3,6 @@
   roles:
     - rbenv
   tasks:
-    - name: complete postgis installation
-      sudo: true
-      sudo_user: postgres
-      shell: echo "create extension postgis;" | psql
     - name: check if vagrant db user exists
       sudo: true
       sudo_user: postgres
