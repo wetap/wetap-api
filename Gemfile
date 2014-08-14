@@ -7,7 +7,7 @@ ruby '2.1.2'
 gem 'dotenv-rails', :groups => [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -16,7 +16,7 @@ gem 'pg'
 gem 'activerecord-postgis-adapter'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '~> 2.3.1.3'
 
 # Use haml for markup
@@ -32,7 +32,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0'
 
 # add geojson support to rgeo
 gem 'rgeo-geojson'
