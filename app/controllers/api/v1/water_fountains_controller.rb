@@ -9,7 +9,7 @@ class Api::V1::WaterFountainsController < ApplicationController
   # GET /water_fountains.json
   def index
     authorize! :read, WaterFountain
-    @water_fountains = WaterFountain.all.limit(50)
+    @water_fountains = WaterFountain.all.order("created_at DESC").limit(50)
     if params[:bbox]
       bbox_params = sanitize_bbox_params(params[:bbox])
       @water_fountains = @water_fountains.bounded_by(bbox_params)
