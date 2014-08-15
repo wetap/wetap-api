@@ -20,4 +20,6 @@
 //= require angular-google-maps.min.js
 //= require ../angular/app.js
 //= require_tree ../angular
+//= require leaflet
+//= require handlebars
 //= require_tree .
