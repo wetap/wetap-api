@@ -36,7 +36,7 @@ function clearMap(fountainLayerGroup){
   fountainLayerGroup.clearLayers();
 }
 
-weTap.directive('fountainMap', function() {
+weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
   return function(scope, element, attrs) {
     console.log('initializing map');
     var map = L.map('fountain-admin-map').setView([34.046, -118.25], 3);
@@ -55,8 +55,8 @@ weTap.directive('fountainMap', function() {
       clearMap(window.fountainLayerGroup);
       var bBoxString = map.getBounds().toBBoxString();
       console.log('New Bounds:,', bBoxString);
-      scope.fountains = scope.WaterFountain.query({bbox: bBoxString});
+      scope.fountains = WaterFountain.query({bbox: bBoxString});
     });
   }
-});
+}]);
 

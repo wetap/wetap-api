@@ -5,7 +5,6 @@ var weTap = angular.module('weTap');
 weTap.controller('WaterFountainIndexController', ['$scope', 'WaterFountain', function ($scope, WaterFountain) {
   // Grab all waterFountains from the server
   $scope.fountains = WaterFountain.query({bbox: "-122.442645,37.737684,-122.387714,37.814752"});
-  $scope.WaterFountain = WaterFountain
 
   // Destroy method for deleting a waterFountain
   $scope.destroy = function (index) {
