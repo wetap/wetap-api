@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+VBoxManage list runningvms | grep wetap | cut -f1 -d " "| sed 's/"//g' | while read machine_uuid; do VBoxManage controlvm $machine_uuid poweroff; done
