@@ -88,7 +88,7 @@ $ RAILS_ENV=test bundle exec rails server
 If you encounter problems standing up the server locally, do the following:
 
 ```
-$ VBoxManage list runningvms | grep wetap | cut -f1 -d " "| sed 's/"//g' | while read machine_uuid; do VBoxManage controlvm $machine_uuid poweroff; done
+$ script/vbox-powerdown
 ```
 
 and in Activity Monitor, search for VBox and kill all active processes.
