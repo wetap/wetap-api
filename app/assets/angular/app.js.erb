@@ -10,4 +10,53 @@ weTap.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       .otherwise({redirectTo: '/'});
 }]);
 
+weTap.directive('addToMap', function() {
+  return function(scope, element, attrs) {
+    var fountain = scope.fountain;
+    var renderedFountainTemplate = fountainTemplate({
+      id: fountain.id,
+      userName: fountain.user_id,
+      createdAt: fountain.created_at,
+      working: fountain.working,
+      flow: fountain.flow,
+      dogBowl: fountain.dog_bowl,
+      refillStation: fountain.refillStation,
+      imageUrl: fountain.image_url
+    });
+
+    var marker = L.marker([fountain.latitude, fountain.longitude]).bindPopup(renderedFountainTemplate);
+    fountain.markerLayer = marker;
+    window.fountainLayerGroup.addLayer(marker);
+  };
+});
+
+
+function clearMap(fountainLayerGroup){
+  //remove all points
+  fountainLayerGroup.clearLayers();
+}
+
+weTap.directive('fountainMap', function() {
+  return function(scope, element, attrs) {
+    console.log('initializing map');
+    var map = L.map('fountain-admin-map').setView([34.046, -118.25], 3);
+    window.map = map
+    window.fountainLayerGroup = L.layerGroup()
+    window.fountainLayerGroup.addTo(window.map);
+
+    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    var osmTileLayer = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 20, attribution: osmAttrib});
+    osmTileLayer.addTo(map);
+
+    window.fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
+
+    map.on('moveend', function(e){
+      clearMap(window.fountainLayerGroup);
+      var bBoxString = map.getBounds().toBBoxString();
+      console.log('New Bounds:,', bBoxString);
+      scope.fountains = scope.WaterFountain.query({bbox: bBoxString});
+    });
+  }
+});
 

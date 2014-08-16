@@ -4,13 +4,16 @@ var weTap = angular.module('weTap');
 
 weTap.controller('WaterFountainIndexController', ['$scope', 'WaterFountain', function ($scope, WaterFountain) {
   // Grab all waterFountains from the server
-  $scope.items = WaterFountain.query();
+  $scope.fountains = WaterFountain.query({bbox: "-122.442645,37.737684,-122.387714,37.814752"});
+  $scope.WaterFountain = WaterFountain
+
   // Destroy method for deleting a waterFountain
   $scope.destroy = function (index) {
     // Tell the server to remove the object
-    WaterFountain.remove({id: $scope.items[index].id}, function () {
+    WaterFountain.remove({id: $scope.fountains[index].id}, function () {
       // If successful, remove it from our collection
-      $scope.items.splice(index, 1);
+      var removedFountain = $scope.fountains.splice(index, 1)[0];
+      window.fountainLayerGroup.removeLayer(removedFountain.markerLayer);
     });
   };
 }]);
