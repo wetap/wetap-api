@@ -31,28 +31,25 @@ weTap.directive('addToMap', function() {
 });
 
 
-function clearMap(fountainLayerGroup){
-  //remove all points
-  fountainLayerGroup.clearLayers();
-}
 
 weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
   return function(scope, element, attrs) {
     console.log('initializing map');
     var map = L.map('fountain-admin-map').setView([34.046, -118.25], 3);
-    window.map = map
-    window.fountainLayerGroup = L.layerGroup()
-    window.fountainLayerGroup.addTo(window.map);
+    var fountainLayerGroup = L.layerGroup();
+    window.map = map;
+    window.fountainLayerGroup = fountainLayerGroup;
+
+    fountainLayerGroup.addTo(map);
 
     var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
     var osmTileLayer = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 20, attribution: osmAttrib});
     osmTileLayer.addTo(map);
 
-    window.fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
 
     map.on('moveend', function(e){
-      clearMap(window.fountainLayerGroup);
+      fountainLayerGroup.clearLayers();
       var bBoxString = map.getBounds().toBBoxString();
       console.log('New Bounds:,', bBoxString);
       scope.fountains = WaterFountain.query({bbox: bBoxString});
