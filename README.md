@@ -6,12 +6,13 @@ A json API to waterfountain data.
 CI
 =========
 
-To restart a failed Jenkins CI job for a PR, make a comment on GitHub
-with only the following:
+To restart a failed Jenkins CI job for a PR, make a comment on GitHub that contains:
 
 ```
-Jenkins retest this please.
+retest this please
 ```
+
+The regex is `.*test\W+this\W+please.*`
 
 * http://ci.endoftheworl.de:8080/job/WeTap-API-develop/
 * http://ci.endoftheworl.de:8080/job/WeTap-API-develop-pr/
