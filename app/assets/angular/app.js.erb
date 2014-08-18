@@ -11,10 +11,16 @@ weTap.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
 }]);
 
 weTap.directive('addToMap', function() {
+  var fountains = {};
+  var fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
+
   return function(scope, element, attrs) {
     var fountain = scope.fountain;
 
-    var fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
+    //Only add fountains the first time they are retrieved.
+    if (fountains[fountain.id]) { return; }
+
+    fountains[fountain.id] = fountain;
 
     var renderedFountainTemplate = fountainTemplate({
       id: fountain.id,
@@ -27,9 +33,9 @@ weTap.directive('addToMap', function() {
       imageUrl: fountain.image_url
     });
 
-    var marker = L.marker([fountain.latitude, fountain.longitude]).bindPopup(renderedFountainTemplate);
-    fountain.markerLayer = marker;
-    window.fountainLayerGroup.addLayer(marker);
+    var markerLayer = L.marker([fountain.latitude, fountain.longitude]).bindPopup(renderedFountainTemplate);
+    fountain.markerLayer = markerLayer;
+    window.fountainLayerGroup.addLayer(markerLayer);
   };
 });
 
@@ -37,7 +43,6 @@ weTap.directive('addToMap', function() {
 
 weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
   return function(scope, element, attrs) {
-    console.log('initializing map');
     var map = L.map('fountain-admin-map').setView([34.046, -118.25], 3);
     var fountainLayerGroup = L.layerGroup();
     window.map = map;
@@ -52,7 +57,6 @@ weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
 
 
     map.on('moveend', function(e){
-      fountainLayerGroup.clearLayers();
       var bBoxString = map.getBounds().toBBoxString();
       console.log('New Bounds:,', bBoxString);
       scope.fountains = WaterFountain.query({bbox: bBoxString});
