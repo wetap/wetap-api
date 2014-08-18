@@ -10,6 +10,12 @@ weTap.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       .otherwise({redirectTo: '/'});
 }]);
 
+angular.module('weTap').filter('fromNow', function() {
+  return function(date) {
+    return moment(date).fromNow();
+  }
+});
+
 weTap.directive('addToMap', function() {
   var fountains = {};
   var fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
@@ -24,13 +30,13 @@ weTap.directive('addToMap', function() {
 
     var renderedFountainTemplate = fountainTemplate({
       id: fountain.id,
-      userName: fountain.user_id,
-      createdAt: fountain.created_at,
+      user_name: fountain.user_id,
+      created_at: moment(fountain.created_at).fromNow(),
       working: fountain.working,
       flow: fountain.flow,
-      dogBowl: fountain.dog_bowl,
-      refillStation: fountain.refillStation,
-      imageUrl: fountain.image_url
+      dog_bowl: fountain.dog_bowl,
+      refill_station: fountain.refill_station,
+      image_url: fountain.image_url
     });
 
     var markerLayer = L.marker([fountain.latitude, fountain.longitude]).bindPopup(renderedFountainTemplate);

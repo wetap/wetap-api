@@ -1,15 +1,15 @@
 <br />
 <div class="row-fluid">
-  <div class="span8">
+  <div class="span6">
     <div id="fountain-admin-map" fountain-map></div>
     <script id="fountain-details-template" type="text/x-handlebars-template">
       <h4>Fountain: {{ id }}</h4>
 
       <strong>created by:</strong>
-      {{ userName }}<br />
+      {{ user_name }}<br />
 
       <strong>created at:</strong>
-      {{ createdAt }}<br />
+      {{ created_at }}<br />
 
       <strong>working:</strong>
       {{ working }}<br />
@@ -18,15 +18,15 @@
       {{ flow }}<br />
 
       <strong>dog bowl:</strong>
-      {{ dogBowl }}<br />
+      {{ dog_bowl }}<br />
 
       <strong>refill station:</strong>
-      {{ refillStation }}<br />
+      {{ refill_station }}<br />
 
-      <img src="{{ imageUrl }}" >
+      <img src="{{ image_url }}" >
     </script>
   </div>
-  <div id="fountain-admin-list" class="span4">
+  <div id="fountain-admin-list" class="span6">
     <a href="#/water_fountain/new" class="btn btn-primary btn-block btn-large">New</a>
     <div ng-show="fountains.$resolved && fountains.length === 0">
       <hr/>
@@ -36,17 +36,23 @@
     <div ng-show="fountains.$resolved && fountains.length > 0">
       <table class="table table-hover">
         <tr>
-          <th>Id</th>
-          <th>User</th>
-          <th>Longitude</th>
-          <th>Latitude</th>
+          <th>id</th>
+          <th>created by</th>
+          <th>created at</th>
+          <th>working</th>
+          <th>flow</th>
+          <th>dog bowl</th>
+          <th>refill station</th>
           <th>Actions</th>
         </tr>
         <tr ng-repeat="fountain in fountains" add-to-map>
-          <td>{{fountain.id}}</td>
-          <td>{{fountain.user_id}}</td>
-          <td>{{fountain.longitude}}</td>
-          <td>{{fountain.latitude}}</td>
+          <td>{{ fountain.id }}</td>
+          <td>{{ fountain.user_id }}</td>
+          <td>{{ fountain.created_at | fromNow }}</td>
+          <td>{{ fountain.working }}</td>
+          <td>{{ fountain.flow }}</td>
+          <td>{{ fountain.dog_bowl }}</td>
+          <td>{{ fountain.refill_station }}</td>
           <td>
             <a href="#/water_fountain/{{fountain.id}}" class="btn btn-small">Details</a>
             <a ng-click="destroy($index)" href="" class="btn btn-small">Delete</a>

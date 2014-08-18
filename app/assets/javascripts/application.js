@@ -22,4 +22,5 @@
 //= require_tree ../angular
 //= require leaflet
 //= require handlebars
+//= require moment
 //= require_tree .
