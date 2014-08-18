@@ -48,12 +48,12 @@ weTap.directive('addToMap', function() {
 
 
 weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
+
   return function(scope, element, attrs) {
     var map = L.map('fountain-admin-map').setView([34.046, -118.25], 3);
     var fountainLayerGroup = L.layerGroup();
     window.map = map;
     window.fountainLayerGroup = fountainLayerGroup;
-
     fountainLayerGroup.addTo(map);
 
     var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -61,11 +61,15 @@ weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
     var osmTileLayer = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 20, attribution: osmAttrib});
     osmTileLayer.addTo(map);
 
-
-    map.on('moveend', function(e){
+    function refreshFountains() {
       var bBoxString = map.getBounds().toBBoxString();
       console.log('New Bounds:,', bBoxString);
       scope.fountains = WaterFountain.query({bbox: bBoxString});
+    }
+
+    refreshFountains();
+    map.on('moveend', function(e){
+      refreshFountains();
     });
   }
 }]);
