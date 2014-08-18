@@ -1,6 +1,24 @@
 <div ng-show='waterFountain.$resolved'>
   <h2>Water Fountain: <span ng-bind="waterFountain.id"></span></h2>
   <hr/>
+  <strong>ID:</strong>
+  {{ fountain.user_id }}<br />
+
+  <strong>Created At:</strong>
+  {{ fountain.created_at | fromNow }}<br />
+
+  <strong>Working?</strong>
+  {{ fountain.working }}
+
+  <strong>Flow</strong>
+  {{ fountain.flow }}
+
+  <strong>Dog Bowl?</strong>
+  {{ fountain.dog_bowl }}
+
+  <strong>Refill Station?</strong>
+  {{ fountain.refill_station }}
+
   <strong>Longitude:</strong> <span ng-bind="map.center.longitude"></span>
   <br/>
   <strong>Latitude:</strong> <span ng-bind="map.center.latitude"></span>
