@@ -13,6 +13,9 @@ weTap.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
 weTap.directive('addToMap', function() {
   return function(scope, element, attrs) {
     var fountain = scope.fountain;
+
+    var fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
+
     var renderedFountainTemplate = fountainTemplate({
       id: fountain.id,
       userName: fountain.user_id,

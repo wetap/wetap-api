@@ -1,48 +1,40 @@
+<br />
+<div class="row-fluid">
+  <div class="span8">
+    <div id="fountain-admin-map" fountain-map></div>
+    <script id="fountain-details-template" type="text/x-handlebars-template">
+      <h4>Fountain: {{ id }}</h4>
 
-<h2>Water Fountains</h2>
+      <strong>created by:</strong>
+      {{ userName }}<br />
 
-<h3>Map</h3>
-<div id="fountain-admin-map" fountain-map></div>
+      <strong>created at:</strong>
+      {{ createdAt }}<br />
 
-<script id="fountain-details-template" type="text/x-handlebars-template">
-  <h4>Fountain: {{ id }}</h4>
+      <strong>working:</strong>
+      {{ working }}<br />
 
-  <strong>created by:</strong>
-  {{ userName }}<br />
+      <strong>flow:</strong>
+      {{ flow }}<br />
 
-  <strong>created at:</strong>
-  {{ createdAt }}<br />
+      <strong>dog bowl:</strong>
+      {{ dogBowl }}<br />
 
-  <strong>working:</strong>
-  {{ working }}<br />
+      <strong>refill station:</strong>
+      {{ refillStation }}<br />
 
-  <strong>flow:</strong>
-  {{ flow }}<br />
-
-  <strong>dog bowl:</strong>
-  {{ dogBowl }}<br />
-
-  <strong>refill station:</strong>
-  {{ refillStation }}<br />
-
-  <img src="{{ imageUrl }}" >
-</script>
-
-
-<h3>List</h3>
-
-<div class="row ng-cloak">
-  <div class="span9">
-    <!-- This will only show when there's no fountains to let the user know there's purposefully nothing there.. -->
+      <img src="{{ imageUrl }}" >
+    </script>
+  </div>
+  <div id="fountain-admin-list" class="span4">
+    <a href="#/water_fountain/new" class="btn btn-primary btn-block btn-large">New</a>
     <div ng-show="fountains.$resolved && fountains.length === 0">
       <hr/>
       <h4>There's nothing here...</h4>
       <p>Use the 'New' button to add a new fountain</p>
     </div>
-    <!-- The list of fountains -->
-    <div>
+    <div ng-show="fountains.$resolved && fountains.length > 0">
       <table class="table table-hover">
-        <!-- This will create a row for every fountain within our fountains object -->
         <tr>
           <th>Id</th>
           <th>User</th>
@@ -61,15 +53,6 @@
           </td>
         </tr>
       </table>
-    </div>
-  </div>
-  <div class="span3">
-    <a href="#/water_fountain/new" class="btn btn-primary btn-block btn-large">New</a>
-    <br/>
-    <div class="well">
-      <p>
-        Welcome to WeTap
-      </p>
     </div>
   </div>
 </div>

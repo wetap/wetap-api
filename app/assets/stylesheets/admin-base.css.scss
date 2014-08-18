@@ -58,8 +58,10 @@ div {
   }
 }
 
-#fountain-admin-map {
-  margin: 20px auto auto 0;
+#fountain-admin-map, #fountain-admin-list {
   height: 600px;
-  width: 80%;
+}
+
+#fountain-admin-list {
+  overflow-y: auto;
 }
