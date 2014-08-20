@@ -5,6 +5,7 @@ ruby '2.1.2'
 # dotenv should be inluded before any other gems that use environment
 # variables, otherwise those gems will get initialized with the wrong values.
 gem 'dotenv-rails', :groups => [:development, :test]
+gem 'foreman'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
