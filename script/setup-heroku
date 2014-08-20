@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Run when setting up a new instance of wetap on heroku
+# Usage:
+#   REMOTE=staging script/setup-heroku
 
 set -e
 set -x
@@ -16,6 +18,8 @@ heroku apps:create wetap-$REMOTE $REMOTE_ARG
 
 echo "WARNING: this database costs money, but we need it to use postgis."
 heroku addons:add heroku-postgresql:standard-yanari $REMOTE_ARG
+echo "create extension postgis" | heroku pg:psql $REMOTE_ARG
+
 heroku addons:add pgbackups $REMOTE_ARG
 heroku addons:add newrelic:stark $REMOTE_ARG
 heroku addons:add sendgrid $REMOTE_ARG
