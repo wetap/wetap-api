@@ -62,17 +62,22 @@ Make sure everything is cool by running the tests
 
     (localhost)➜ script/ci
 
+We depend on some environment variables that you'll need to set for a fully functioning app.
+
+    (localhost)➜ cp .env-template .env
+    (localhost)➜ vim .env #fill in appropriately.
+
 If it passes, start the server
 
     (localhost)➜ vagrant ssh
     (vagranthost)➜ cd /vagrant
-    (vagranthost)➜ bundle exec rails server
+    (vagranthost)➜ bundle exec foreman start
 
 Verify that you're good to go!
 
     # There are no water fountains by default, so you should see an
     # empty JSON list.
-    (localhost)➜ curl localhost:4000/water_fountains.json
+    (localhost)➜ curl localhost:4000/api/v1/water_fountains.json
     []
 
 Start Server for Local Calabash iOS Testing
