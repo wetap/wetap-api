@@ -11,8 +11,13 @@ weTap.controller('WaterFountainIndexController', ['$scope', 'WaterFountain', fun
     // Tell the server to remove the object
     WaterFountain.remove({id: $scope.fountains[index].id}, function () {
       // If successful, remove it from our collection
+      //
+      // NOTE: removedFountain and globalMarkerReference represent the same
+      // fountain, but *sometimes* reference a different instance - especially
+      // after panning around and zooming a bunch.
       var removedFountain = $scope.fountains.splice(index, 1)[0];
-      window.fountainLayerGroup.removeLayer(removedFountain.markerLayer);
+      var globalMarkerReference = window.fountainsOnMap[removedFountain.id];
+      window.fountainLayerGroup.removeLayer(globalMarkerReference.markerLayer);
     });
   };
 }]);
