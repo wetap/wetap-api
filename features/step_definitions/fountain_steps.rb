@@ -1,29 +1,25 @@
-When(/^I go to the fountain list page$/) do
-  visit '/admin'
-end
-
-Then(/^I should see a list of fountains$/) do
-  expect(page).to have_content('-72.5755')
-end
-
-Then(/^I should see the login page$/) do
-  expect(page).to have_content('WeTap Sign in')
-end
-
 When(/^I go to the new fountain page$/) do
   visit '/admin/#/water_fountain/new'
+end
+
+When(/^I am looking at the fountain admin$/) do
+  visit '/admin'
 end
 
 Then(/^I should see that I successfully created a fountain$/) do
   expect(page).not_to have_content(/New Water Fountain/)
 end
 
-When(/^I go to the fountain map page$/) do
-    pending # express the regexp above with the code you wish you had
+Then(/^I should see the fountains on the map$/) do
+  within("#fountain-admin-map .leaflet-marker-pane") do
+    expect(all('img')).not_to be_empty
+  end
 end
 
-Then(/^I should see the fountains on the map$/) do
-    pending # express the regexp above with the code you wish you had
+Then (/^I should see the fountains on the list$/) do
+  within("#fountain-admin-list") do
+    expect(all('tr').count > 1).to be_true
+  end
 end
 
 Given(/^there are some fountains$/) do
