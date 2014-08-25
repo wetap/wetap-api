@@ -22,6 +22,21 @@ Then (/^I should see the fountains on the list$/) do
   end
 end
 
+When(/^I view the first fountain's details$/) do
+  within("#fountain-admin-list") do
+    wthin(all('tr')[1]) do
+      binding.pry
+      click_on "Details"
+    end
+  end
+end
+
+Then(/^I should see that it has a dog bowl$/) do
+  within('.fountain-details') do
+    expect(page).to have_text("Dog Bowl?: No")
+  end
+end
+
 Given(/^there are some fountains$/) do
   # Montpelier Vermont City Hall
   WaterFountain.create!("location" => { "type" => "Point",
