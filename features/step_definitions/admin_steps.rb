@@ -18,6 +18,10 @@ Then(/^I should see '(.*)'$/) do |text|
   expect(page).to have_content(/#{text}/m)
 end
 
+Then(/^I should see the login page$/) do
+  expect(page).to have_content('WeTap Sign in')
+end
+
 # I *so* want this to work - it would allow tests to use the field name from the model
 #    instead of having to add an un-needed "id" attribute to each field.
 #    This is how they do it in Protractor ...

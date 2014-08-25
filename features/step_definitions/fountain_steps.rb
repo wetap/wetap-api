@@ -2,7 +2,7 @@ When(/^I go to the new fountain page$/) do
   visit '/admin/#/water_fountain/new'
 end
 
-When(/^I am looking at the fountain admin$/) do
+When(/^I (?:am looking at|go to) the fountain admin$/) do
   visit '/admin'
 end
 
