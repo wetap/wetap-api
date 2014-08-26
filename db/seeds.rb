@@ -23,8 +23,8 @@ WaterFountain.create!("location" => { "type" => "Point",
 WaterFountain.create!("location" => { "type" => "Point",
                                       "coordinates" => [-118.3240, 34.0937] })
 
-AuthTokenPair.create!({"public_token" => "fake-public-token",
-                       "private_token" => "fake-private-token",
+AuthTokenPair.create!({"public_token" => "fake-public-token---",
+                       "private_token" => "fake-private-token--",
                        "user_id" => 1,
                        "created_at" => "Mon, 07 Jul 2014 20:16:41 UTC +00:00", "updated_at"=>"Mon, 07 Jul 2014 20:16:41 UTC +00:00"})
 
