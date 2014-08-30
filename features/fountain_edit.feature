@@ -3,7 +3,7 @@ Feature: As an admin
   So that I can manage my applications data.
 
   @javascript
-  Scenario: Add a new fountain
+  Scenario: Edit a fountain
     Given there are some fountains
     And I am logged in as an admin
     And I am on the new fountain page
