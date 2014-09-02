@@ -22,10 +22,3 @@ Then(/^I should see the login page$/) do
   expect(page).to have_content('WeTap Sign in')
 end
 
-# I *so* want this to work - it would allow tests to use the field name from the model
-#    instead of having to add an un-needed "id" attribute to each field.
-#    This is how they do it in Protractor ...
-And(/^I fill in '(.*)' for ng-model '(.*)'$/) do |value, field|
-  fld = element(by.model(field))
-  fld.fill_in(value, :with => value)
-end
