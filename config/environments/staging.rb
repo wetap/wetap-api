@@ -1,5 +1,5 @@
 # Based on production, but with a few tweaks.
-require 'production'
+require Rails.root + 'config/environments/production'
 
 WetapApi::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
