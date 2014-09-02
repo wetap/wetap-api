@@ -1,8 +1,8 @@
 #message
   - if current_user.present?
-    TODO:  Pick up your wetap auth credentials here.
-    = "Public token: #{current_user.public_token}"
-    = "Private token: #{current_user.private_token}"
+    -# TODO:  Pick up your wetap auth credentials here.
+    -# = "Public token: #{current_user.public_token}"
+    -# = "Private token: #{current_user.private_token}"
     :javascript
       #{render 'auth_token_pair.js', public_token: current_user.public_token}
   - else
