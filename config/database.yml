@@ -1,8 +1,11 @@
-production:
+production: &production
   adapter: postgis
   encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
   pool: 5
+
+staging:
+  <<: *production
 
 development:
   adapter: postgis
