@@ -30,4 +30,5 @@ BUILD_SUCCESS=$?
 
 # Halt VM to avoid conflicts with other builds
 vagrant halt
+vagrant destroy --force
 exit $BUILD_SUCCESS
