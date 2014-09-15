@@ -18,6 +18,13 @@ WaterFountain.create!("location" => { "type" => "Point",
                      "dog_bowl" => false,
                      "flow" => "good")
 
+# The Temple, Sant Cirq Madelon, Lot France
+WaterFountain.create!("location" => { "type" => "Point",
+                                      "coordinates" => [1.3127, 44.7915] },
+                      "working" => true,
+                      "filling_station" => true,
+                      "dog_bowl" => false,
+                      "flow" => "good")
 
 # Ian's house
 WaterFountain.create!("location" => { "type" => "Point",
