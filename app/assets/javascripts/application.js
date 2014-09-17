@@ -17,7 +17,9 @@
 //= require angular
 //= require angular-resource
 //= require angular-route
-//= require angular-google-maps.min.js
 //= require ../angular/app.js
 //= require_tree ../angular
+//= require leaflet
+//= require handlebars
+//= require moment
 //= require_tree .

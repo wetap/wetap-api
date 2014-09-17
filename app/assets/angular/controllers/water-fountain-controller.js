@@ -4,13 +4,20 @@ var weTap = angular.module('weTap');
 
 weTap.controller('WaterFountainIndexController', ['$scope', 'WaterFountain', function ($scope, WaterFountain) {
   // Grab all waterFountains from the server
-  $scope.items = WaterFountain.query();
+  $scope.fountains = WaterFountain.query({bbox: "-122.442645,37.737684,-122.387714,37.814752"});
+
   // Destroy method for deleting a waterFountain
   $scope.destroy = function (index) {
     // Tell the server to remove the object
-    WaterFountain.remove({id: $scope.items[index].id}, function () {
+    WaterFountain.remove({id: $scope.fountains[index].id}, function () {
       // If successful, remove it from our collection
-      $scope.items.splice(index, 1);
+      //
+      // NOTE: removedFountain and globalMarkerReference represent the same
+      // fountain, but *sometimes* reference a different instance - especially
+      // after panning around and zooming a bunch.
+      var removedFountain = $scope.fountains.splice(index, 1)[0];
+      var globalMarkerReference = window.fountainsOnMap[removedFountain.id];
+      window.fountainLayerGroup.removeLayer(globalMarkerReference.markerLayer);
     });
   };
 }]);
@@ -37,49 +44,3 @@ weTap.controller('WaterFountainCreateController', ['$scope', '$location', 'Water
   };
 }]);
 
-// A controller to show the waterFountain in all its glory
-weTap.controller('WaterFountainShowController', ['$scope', 'WaterFountain', '$routeParams', function ($scope, WaterFountain, $routeParams) {
-  // Grab the waterFountain from the server
-  $scope.waterFountain = WaterFountain.get({id: $routeParams.id});
-  $scope.sites = [];
-  // minimal set needed to initialize the map without errors
-  $scope.map = {center: {latitude: 0, longitude: 0}, zoom: 0};
-
-  $scope.$watch('waterFountain.id', function () {
-    if ($scope.waterFountain.$resolved) {
-      $scope.sites.push({
-        latitude: $scope.waterFountain.latitude,
-        longitude: $scope.waterFountain.longitude,
-        options: {title: "Fountain: " + $scope.waterFountain.id}
-      });
-      $scope.map = {
-        control: {},
-        options: {
-          streetViewControl: true,
-          panControl: false,
-          maxZoom: 20,
-          minZoom: 3
-        },
-        center: {
-          latitude: $scope.waterFountain.latitude,
-          longitude: $scope.waterFountain.longitude
-        },
-        zoom: 18
-      };
-    }
-  });
-
-  _.each($scope.sites, function (site) {
-    site.closeClick = function () {
-      site.showWindow = false;
-      $scope.$apply();
-    };
-    site.onClicked = function () {
-      onMarkerClicked(site);
-    };
-  });
-
-  $scope.isDefined = function (viewVar) {
-    return angular.isDefined(viewVar);
-  };
-}]);

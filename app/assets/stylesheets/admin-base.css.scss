@@ -57,3 +57,11 @@ div {
     list-style: square;
   }
 }
+
+#fountain-admin-map, #fountain-admin-list {
+  height: 600px;
+}
+
+#fountain-admin-list {
+  overflow-y: auto;
+}

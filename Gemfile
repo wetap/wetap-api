@@ -53,6 +53,10 @@ gem 'aws-sdk'
 
 gem 'newrelic_rpm'
 
+gem 'leaflet-rails'
+gem 'handlebars_assets'
+gem 'momentjs-rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

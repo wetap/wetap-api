@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805190425) do
+ActiveRecord::Schema.define(version: 20140815144923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20140805190425) do
     t.string   "flow"
   end
 
+  add_index "water_fountains", ["created_at"], :name => "index_water_fountains_on_created_at"
   add_index "water_fountains", ["data_source", "data_source_id"], :name => "index_water_fountains_on_data_source_and_data_source_id", :unique => true
   add_index "water_fountains", ["user_id"], :name => "index_water_fountains_on_user_id"
 
