@@ -5,6 +5,10 @@ class Api::V1::WaterFountainsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :authenticate_user_from_token!, except: [:index, :show]
 
+  rescue_from CanCan::AccessDenied do |exception|
+    head :forbidden
+  end
+
   # GET /water_fountains
   # GET /water_fountains.json
   def index
