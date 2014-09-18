@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe AdminController do
-  let!(:user) { FactoryGirl.create(:user) }
-
   describe("GET index") do
     context "when signed out" do
       before do
