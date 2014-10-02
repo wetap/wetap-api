@@ -65,7 +65,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'pry'
-  gem 'ci_reporter'
+  gem 'ci_reporter', '~>1.9'
   gem 'cucumber-rails', :require => false
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
