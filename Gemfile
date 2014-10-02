@@ -8,7 +8,7 @@ gem 'dotenv-rails', :groups => [:development, :test]
 gem 'foreman'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.6'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -65,7 +65,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'pry'
-  gem 'ci_reporter'
+  gem 'ci_reporter', '~>1.9'
   gem 'cucumber-rails', :require => false
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
