@@ -26,6 +26,14 @@ WaterFountain.create!("location" => { "type" => "Point",
                       "dog_bowl" => false,
                       "flow" => "good")
 
+# Markt Platz, Engen, Baden Württemburg Germany
+WaterFountain.create!("location" => { "type" => "Point",
+                                      "coordinates" => [8.7707, 47.8522] },
+                      "working" => true,
+                      "filling_station" => true,
+                      "dog_bowl" => false,
+                      "flow" => "good")
+
 # Ian's house
 WaterFountain.create!("location" => { "type" => "Point",
                                       "coordinates" => [-118.3240, 34.0937] })
