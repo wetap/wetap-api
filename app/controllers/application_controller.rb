@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     if current_user
-      head :forbidden
+      redirect_to root_url, :flash => { :alert => "You are not authorized to access that page" }
     else
       redirect_to sign_in_url
     end
