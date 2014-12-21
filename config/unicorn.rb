@@ -19,14 +19,15 @@ after_fork do |server, worker|
   end
 
   if defined?(ActiveRecord::Base)
-    config = Rails.application.config.database_configuration[Rails.env]
+    config = ActiveRecord::Base.configurations[Rails.env]
+    config ||= Rails.application.config.database_configuration[Rails.env]
     config['adapter'] = 'postgis'
 
     if url = config.delete('url')
       # we take all params from the URL except the adapter
       # there is no safe way to specify a postgis adapter
       parsed_url = URI.parse(url)
-      config_from_url =  { 
+      config_from_url =  {
         'host' => parsed_url.host,
         'encoding' => 'unicode',
         'database' => parsed_url.path.split("/")[-1],
