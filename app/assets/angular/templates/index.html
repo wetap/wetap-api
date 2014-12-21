@@ -45,7 +45,7 @@
           <th>refill station</th>
           <th>Actions</th>
         </tr>
-        <tr ng-repeat="fountain in fountains" add-to-map>
+        <tr ng-repeat="fountain in fountains" add-to-map ng-click="activatePin($index)">
           <td>{{ fountain.id }}</td>
           <td>{{ fountain.user_id }}</td>
           <td>{{ fountain.created_at | fromNow }}</td>
