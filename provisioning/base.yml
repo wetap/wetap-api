@@ -42,5 +42,5 @@
     - name: installing necessary gems
       shell: source /etc/profile && cd /vagrant && gem install bundler && rbenv rehash && bundle install executable=/bin/bash
     - name: set up databases
-      shell: source /etc/profile && cd /vagrant && bundle exec rake db:setup && RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load executable=/bin/bash
+      shell: source /etc/profile && cd /vagrant && bundle exec rake db:reset && RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load executable=/bin/bash
 

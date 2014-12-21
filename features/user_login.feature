@@ -5,6 +5,5 @@ Feature: As a user
   @javascript
 
   Scenario: See login failure
-    Given there are some fountains
-    When I go to the fountain list page
+    When I go to the fountain admin
     Then I should see the login page

@@ -18,18 +18,34 @@ WaterFountain.create!("location" => { "type" => "Point",
                      "dog_bowl" => false,
                      "flow" => "good")
 
+# The Temple, Sant Cirq Madelon, Lot France
+WaterFountain.create!("location" => { "type" => "Point",
+                                      "coordinates" => [1.3127, 44.7915] },
+                      "working" => true,
+                      "filling_station" => true,
+                      "dog_bowl" => false,
+                      "flow" => "good")
+
+# Markt Platz, Engen, Baden Württemburg Germany
+WaterFountain.create!("location" => { "type" => "Point",
+                                      "coordinates" => [8.7707, 47.8522] },
+                      "working" => true,
+                      "filling_station" => true,
+                      "dog_bowl" => false,
+                      "flow" => "good")
 
 # Ian's house
 WaterFountain.create!("location" => { "type" => "Point",
                                       "coordinates" => [-118.3240, 34.0937] })
 
-AuthTokenPair.create!({"public_token" => "fake-public-token",
-                       "private_token" => "fake-private-token",
+AuthTokenPair.create!({"public_token" => "fake-public-token---",
+                       "private_token" => "fake-private-token--",
                        "user_id" => 1,
                        "created_at" => "Mon, 07 Jul 2014 20:16:41 UTC +00:00", "updated_at"=>"Mon, 07 Jul 2014 20:16:41 UTC +00:00"})
 
 User.create!("email" => "admin@wetap-api.com",
              "password" => "anyanyany",
+             "admin" => true,
              "confirmation_token" => nil,
              "confirmed_at" => "Mon, 07 Jul 2014 20:14:00 UTC +00:00",
              "updated_at" => "Mon, 07 Jul 2014 20:14:00 UTC +00:00")

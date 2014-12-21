@@ -8,8 +8,9 @@ describe Api::V1::WaterFountainsController do
     valid_attributes.merge({ "image" => Base64.encode64(File.read(Rails.root + 'spec/fixtures/example_water_fountain.jpg')) })
   end
   let(:private_attribute_names) { ["data_source", "data_source_id", "import_source"] }
-  let!(:user) { User.create(email: "test@foo.com", password:"12345678") }
-  let(:public_token) { user.public_token }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:admin_user) { FactoryGirl.create(:admin_user) }
+  let(:public_token) { admin_user.public_token }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -32,7 +33,6 @@ describe Api::V1::WaterFountainsController do
 
       before do
         get :index, {format: 'json', bbox: bbox_params}, valid_session
-        #get :index, {format: 'json', bbox: bbox_params}, valid_session
       end
 
       subject { WaterFountain.bounding_box_from(params) }
@@ -210,6 +210,87 @@ describe Api::V1::WaterFountainsController do
       water_fountain = WaterFountain.create! valid_attributes
       delete :destroy, {format: 'json', public_token: public_token, :id => water_fountain.to_param}, valid_session
       expect(response.code).to eq("204")
+    end
+  end
+
+  describe "authorizations" do
+    subject { response.code }
+    let(:water_fountain) { FactoryGirl.create(:water_fountain) }
+
+    describe "GET index" do
+      before { get :index, format: 'json', public_token: public_token }
+      context "with user public_token" do
+        let(:public_token) { user.public_token }
+        it { should eq("200") }
+      end
+      context "with admin public_token" do
+        let(:public_token) { admin_user.public_token }
+        it { should eq("200") }
+      end
+      context "without any public_token" do
+        let(:public_token) { nil }
+        it { should eq("200") }
+      end
+    end
+    describe "GET show" do
+      before { get :show, format: 'json', id: water_fountain.to_param, public_token: public_token }
+      context "with user public_token" do
+        let(:public_token) { user.public_token }
+        it { should eq("200") }
+      end
+      context "with admin public_token" do
+        let(:public_token) { admin_user.public_token }
+        it { should eq("200") }
+      end
+      context "without any public_token" do
+        let(:public_token) { nil }
+        it { should eq("200") }
+      end
+    end
+    describe "POST create" do
+      before { post :create, format: 'json', public_token: public_token, water_fountain: valid_attributes }
+      context "with user public_token" do
+        let(:public_token) { user.public_token }
+        it { should eq("201") }
+      end
+      context "with admin public_token" do
+        let(:public_token) { admin_user.public_token }
+        it { should eq("201") }
+      end
+      context "without any public_token" do
+        let(:public_token) { nil }
+        it { should eq("401") }
+      end
+    end
+    describe "PUT update" do
+      before { put :update, format: 'json', public_token: public_token, id: water_fountain.to_param, water_fountain: valid_attributes }
+      context "with user public_token" do
+        let(:public_token) { user.public_token }
+        it { should eq("403") }
+      end
+      context "with admin public_token" do
+        let(:public_token) { admin_user.public_token }
+        it { should eq("204") }
+      end
+      context "without any public_token" do
+        let(:public_token) { nil }
+        it { should eq("401") }
+      end
+    end
+    describe "DELETE destroy" do
+      before { delete :destroy, format: 'json', public_token: public_token, id: water_fountain.to_param }
+      context "with user public_token" do
+        let(:public_token) { user.public_token }
+        it { should eq("403") }
+      end
+      context "with admin public_token" do
+        let(:public_token) { admin_user.public_token }
+        it { should eq("204") }
+      end
+      context "without any public_token" do
+        let(:public_token) { nil }
+        it { should eq("401") }
+      end
     end
   end
 

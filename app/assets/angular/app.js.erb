@@ -1,13 +1,75 @@
 'use strict';
 // This is our main launch point from Angular.
-var weTap = angular.module('weTap', ['ngResource', 'ngRoute', 'weTap.loading', 'google-maps']);
+var weTap = angular.module('weTap', ['ngResource', 'ngRoute', 'weTap.loading']);
 
 weTap.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
       .when('/', {controller: 'WaterFountainIndexController', templateUrl: '<%= asset_path('templates/index.html') %>'})
       .when('/water_fountain/new', {controller: 'WaterFountainCreateController', templateUrl: '<%= asset_path('templates/new.html') %>'})
-      .when('/water_fountain/:id', {controller: 'WaterFountainShowController', templateUrl: '<%= asset_path('templates/show.html') %>'})
       .otherwise({redirectTo: '/'});
 }]);
 
+angular.module('weTap').filter('fromNow', function() {
+  return function(date) {
+    return moment(date).fromNow();
+  }
+});
+
+window.fountainsOnMap = {};
+weTap.directive('addToMap', function() {
+  var fountainTemplate = Handlebars.compile($("#fountain-details-template").html());
+
+  return function(scope, element, attrs) {
+    var fountain = scope.fountain;
+
+    //Only add fountainsOnMap the first time they are retrieved.
+    if (fountainsOnMap[fountain.id]) { return; }
+
+    fountainsOnMap[fountain.id] = fountain;
+
+    var renderedFountainTemplate = fountainTemplate({
+      id: fountain.id,
+      user_name: fountain.user_id,
+      created_at: moment(fountain.created_at).fromNow(),
+      working: fountain.working,
+      flow: fountain.flow,
+      dog_bowl: fountain.dog_bowl,
+      refill_station: fountain.refill_station,
+      image_url: fountain.image_url
+    });
+
+    var markerLayer = L.marker([fountain.latitude, fountain.longitude]).bindPopup(renderedFountainTemplate);
+    fountain.markerLayer = markerLayer;
+    window.fountainLayerGroup.addLayer(markerLayer);
+  };
+});
+
+
+
+weTap.directive('fountainMap', ['WaterFountain', function(WaterFountain) {
+
+  return function(scope, element, attrs) {
+    var map = L.map('fountain-admin-map').setView([34.046, -118.25], 3);
+    var fountainLayerGroup = L.layerGroup();
+    window.map = map;
+    window.fountainLayerGroup = fountainLayerGroup;
+    fountainLayerGroup.addTo(map);
+
+    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    var osmTileLayer = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 20, attribution: osmAttrib});
+    osmTileLayer.addTo(map);
+
+    function refreshFountains() {
+      var bBoxString = map.getBounds().toBBoxString();
+      console.log('New Bounds:,', bBoxString);
+      scope.fountains = WaterFountain.query({bbox: bBoxString});
+    }
+
+    refreshFountains();
+    map.on('moveend', function(e){
+      refreshFountains();
+    });
+  }
+}]);
 

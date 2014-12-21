@@ -6,10 +6,22 @@ A json API to waterfountain data.
 CI
 =========
 
-* http://ljs-jenkins.ngrok.com/job/WeTap-API/ 
-    - on commits to master
-* http://ljs-jenkins.ngrok.com/job/WeTap-API-Pull-Requests/ 
-    - new pull-requests and new commits to existing pull requests
+To restart a failed Jenkins CI job for a PR, make a comment on GitHub that contains:
+
+```
+retest this please
+```
+
+The regex is `.*test\W+this\W+please.*`
+
+* http://ci.endoftheworl.de:8080/job/WeTap-API-develop/
+* http://ci.endoftheworl.de:8080/job/WeTap-API-develop-pr/
+* http://ci.endoftheworl.de:8080/job/WeTap-API-master/
+
+- [x] on new commits to master ==> WeTap-API-master
+- [x] on new commits to develop ==> WeTap-API-develop
+     - [ ] trigger WeTap-iOS
+- [x] on PR against develop ==> WeTap-API-develop-pr (merged into 'develop')
 
 Dependencies
 ------------
@@ -50,17 +62,22 @@ Make sure everything is cool by running the tests
 
     (localhost)➜ script/ci
 
+We depend on some environment variables that you'll need to set for a fully functioning app.
+
+    (localhost)➜ cp .env-template .env
+    (localhost)➜ vim .env #fill in appropriately.
+
 If it passes, start the server
 
     (localhost)➜ vagrant ssh
     (vagranthost)➜ cd /vagrant
-    (vagranthost)➜ bundle exec rails server
+    (vagranthost)➜ bundle exec foreman start
 
 Verify that you're good to go!
 
     # There are no water fountains by default, so you should see an
     # empty JSON list.
-    (localhost)➜ curl localhost:4000/water_fountains.json
+    (localhost)➜ curl localhost:4000/api/v1/water_fountains.json
     []
 
 Start Server for Local Calabash iOS Testing
@@ -77,7 +94,7 @@ $ RAILS_ENV=test bundle exec rails server
 If you encounter problems standing up the server locally, do the following:
 
 ```
-$ VBoxManage list runningvms | grep wetap | cut -f1 -d " "| sed 's/"//g' | while read machine_uuid; do VBoxManage controlvm $machine_uuid poweroff; done
+$ script/vbox-powerdown
 ```
 
 and in Activity Monitor, search for VBox and kill all active processes.

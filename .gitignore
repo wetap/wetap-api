@@ -24,6 +24,8 @@ ci-reports
 # RubyMine
 .idea
 
+tags
+
 #credentials
 config/*-credentials.yml
 .env

@@ -5,20 +5,25 @@ class Api::V1::WaterFountainsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :authenticate_user_from_token!, except: [:index, :show]
 
+  rescue_from CanCan::AccessDenied do |exception|
+    head :forbidden
+  end
+
   # GET /water_fountains
   # GET /water_fountains.json
   def index
-    @water_fountains = WaterFountain.all.limit(50)
+    authorize! :read, WaterFountain
+    @water_fountains = WaterFountain.all.order("created_at DESC").limit(50)
     if params[:bbox]
       bbox_params = sanitize_bbox_params(params[:bbox])
       @water_fountains = @water_fountains.bounded_by(bbox_params)
-
     end
   end
 
   # GET /water_fountains/1
   # GET /water_fountains/1.json
   def show
+    authorize! :read, @water_fountain
   end
 
   # POST /water_fountains
@@ -26,6 +31,8 @@ class Api::V1::WaterFountainsController < ApplicationController
   def create
     @water_fountain = WaterFountain.new(water_fountain_params)
     @water_fountain.user = current_user
+
+    authorize! :create, @water_fountain
 
     # check if image was sent
     if params[:water_fountain] && params[:water_fountain][:image]
@@ -70,6 +77,7 @@ class Api::V1::WaterFountainsController < ApplicationController
   # PATCH/PUT /water_fountains/1
   # PATCH/PUT /water_fountains/1.json
   def update
+    authorize! :update, @water_fountain
     respond_to do |format|
       if @water_fountain.update(water_fountain_params)
         format.json { head :no_content }
@@ -82,6 +90,7 @@ class Api::V1::WaterFountainsController < ApplicationController
   # DELETE /water_fountains/1
   # DELETE /water_fountains/1.json
   def destroy
+    authorize! :destroy, @water_fountain
     @water_fountain.destroy
     respond_to do |format|
       format.json { head :no_content }

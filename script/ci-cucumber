@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+CUCUMBER_ARGS=$*
+
 # run cucumber in a virtual frame buffer, for when you're running without a display (e.g. jenkins / vagrant)
-xvfb-run bundle exec cucumber
+xvfb-run bundle exec cucumber $CUCUMBER_ARGS

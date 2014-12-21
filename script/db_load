@@ -1,0 +1,15 @@
+#!/bin/sh
+# overwrites local DB with local copy of remote dump
+# usage: script/db_pull wetap
+# defaults to staging
+
+set -e
+set -x
+
+APP=${1:-wetap-staging}
+DATABASE_NAME=wetap-api_development
+DUMP_NAME=tmp/$APP.dump
+
+dropdb $DATABASE_NAME 
+createdb $DATABASE_NAME
+pg_restore -d $DATABASE_NAME --no-owner $DUMP_NAME -v

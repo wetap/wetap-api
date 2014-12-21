@@ -5,9 +5,10 @@ ruby '2.1.2'
 # dotenv should be inluded before any other gems that use environment
 # variables, otherwise those gems will get initialized with the wrong values.
 gem 'dotenv-rails', :groups => [:development, :test]
+gem 'foreman'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.6'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -41,6 +42,9 @@ gem 'rgeo-geojson'
 gem 'devise'
 gem 'omniauth-twitter'
 
+# authorization
+gem 'cancan'
+
 # file attachments
 gem 'paperclip'
 
@@ -48,6 +52,10 @@ gem 'paperclip'
 gem 'aws-sdk'
 
 gem 'newrelic_rpm'
+
+gem 'leaflet-rails'
+gem 'handlebars_assets'
+gem 'momentjs-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -57,7 +65,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'pry'
-  gem 'ci_reporter'
+  gem 'ci_reporter', '~>1.9'
   gem 'cucumber-rails', :require => false
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
