@@ -41,14 +41,16 @@
           <th>Created at</th>
           <th>Actions</th>
         </tr>
-        <tr ng-repeat="fountain in fountains" add-to-map ng-click="activatePin($index)">
-          <td>{{ fountain.id }}</td>
-          <td>{{ fountain.user_name }}</td>
-          <td>{{ fountain.created_at | fromNow }}</td>
-          <td>
-            <a ng-click="destroy($index)" href="" class="btn btn-small">Delete</a>
-          </td>
-        </tr>
+        <tbody>
+          <tr ng-repeat="fountain in fountains" add-to-map ng-click="activatePin($index)">
+            <td>{{ fountain.id }}</td>
+            <td>{{ fountain.user_name }}</td>
+            <td>{{ fountain.created_at | fromNow }}</td>
+            <td>
+              <a ng-click="destroy($index)" href="" class="btn btn-small">Delete</a>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

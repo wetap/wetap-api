@@ -117,7 +117,7 @@ describe Api::V1::WaterFountainsController do
           created_at: water_fountain.created_at,
           updated_at: water_fountain.updated_at,
           user_id: water_fountain.user_id,
-          user_name: "unknown",
+          user_name: water_fountain.user.email,
           working: true,
           filling_station: true,
           dog_bowl: false,
