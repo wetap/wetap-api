@@ -39,6 +39,10 @@ class WaterFountain < ActiveRecord::Base
     SecureRandom.uuid + '.jpg'
   end
 
+  def user_name
+    user.present? ? user.email : 'unknown'
+  end
+
   private
 
   def self.bbox_crosses_dateline(bbox_params)

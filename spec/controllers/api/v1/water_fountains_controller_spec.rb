@@ -77,6 +77,7 @@ describe Api::V1::WaterFountainsController do
         dog_bowl: false,
         flow: "good",
         user_id: nil,
+        user_name: "unknown",
         url: "http://test.host/api/v1/water_fountains/#{water_fountain.id}.json"
       }
 
@@ -116,6 +117,7 @@ describe Api::V1::WaterFountainsController do
           created_at: water_fountain.created_at,
           updated_at: water_fountain.updated_at,
           user_id: water_fountain.user_id,
+          user_name: water_fountain.user.email,
           working: true,
           filling_station: true,
           dog_bowl: false,
