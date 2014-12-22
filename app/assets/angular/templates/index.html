@@ -36,23 +36,15 @@
     <div ng-show="fountains.$resolved && fountains.length > 0">
       <table class="table table-hover">
         <tr>
-          <th>id</th>
-          <th>created by</th>
-          <th>created at</th>
-          <th>working</th>
-          <th>flow</th>
-          <th>dog bowl</th>
-          <th>refill station</th>
+          <th>ID</th>
+          <th>Created by</th>
+          <th>Created at</th>
           <th>Actions</th>
         </tr>
         <tr ng-repeat="fountain in fountains" add-to-map ng-click="activatePin($index)">
           <td>{{ fountain.id }}</td>
-          <td>{{ fountain.user_id }}</td>
+          <td>{{ fountain.user_name }}</td>
           <td>{{ fountain.created_at | fromNow }}</td>
-          <td>{{ fountain.working }}</td>
-          <td>{{ fountain.flow }}</td>
-          <td>{{ fountain.dog_bowl }}</td>
-          <td>{{ fountain.refill_station }}</td>
           <td>
             <a ng-click="destroy($index)" href="" class="btn btn-small">Delete</a>
           </td>
