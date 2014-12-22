@@ -22,10 +22,10 @@ weTap.controller('WaterFountainIndexController', ['$scope', 'WaterFountain', fun
   };
 
   $scope.activatePin = function(index){
-    var activatedFountain = $scope.fountains.splice(index, 1)[0];
+    var activatedFountain = $scope.fountains[index];
     var globalMarkerReference = window.fountainsOnMap[activatedFountain.id];
-    globalMarkerReference.markerLayer.openPopup()
-  }
+    globalMarkerReference.markerLayer.openPopup();
+  };
 }]);
 
 weTap.controller('WaterFountainCreateController', ['$scope', '$location', 'WaterFountain', function ($scope, $location, WaterFountain) {
