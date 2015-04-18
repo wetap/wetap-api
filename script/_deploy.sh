@@ -1,7 +1,6 @@
 set -e
 set -x
 
-# True if changes have been made in the db/migrate directory since last deploy
 have_migrations()
 {
   if [ -z "$1" ]
