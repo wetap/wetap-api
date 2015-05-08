@@ -43,6 +43,10 @@ class WaterFountain < ActiveRecord::Base
     user.present? ? user.email : 'unknown'
   end
 
+  def for_export
+    as_json(only: [:id, :created_at, :updated_at, :location, :user_id, :working, :filling_station, :dog_bowl, :flow, :thumbnail_url])
+  end
+
   private
 
   def self.bbox_crosses_dateline(bbox_params)

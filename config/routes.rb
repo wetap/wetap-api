@@ -10,6 +10,7 @@ WetapApi::Application.routes.draw do
   end
 
   get :admin, to: 'admin#index'
+  get 'admin/export', to: 'water_fountain_exports#show'
 
   get "auth_token_pairs/me", to: "auth_token_pairs#me"
   if Rails.env.test?
