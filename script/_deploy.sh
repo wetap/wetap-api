@@ -17,7 +17,7 @@ have_migrations()
 }
 
 
-heroku pgbackups:capture -e --remote $REMOTE
+heroku pg:backups capture --remote $REMOTE
 git push $REMOTE $SOURCE:master
 
 if have_migrations $REMOTE
