@@ -13,6 +13,6 @@ MY_DIR=`dirname $0`
 echo dumping latest $APP db into local $DATABASE_NAME
 
 heroku pg:backups capture --app $APP
-curl -o $DUMP_NAME `heroku pgbackups:url --app $APP`
+curl -o $DUMP_NAME `heroku pg:backups public-url --app $APP`
 
 $MY_DIR/db_load $APP
