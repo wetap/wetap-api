@@ -1,26 +1,25 @@
-production: &production
+default: &default
   adapter: postgis
   encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
-  pool: 5
-
-staging:
-  <<: *production
-
-development:
-  adapter: postgis
-  encoding: unicode
   database: wetap-api_development
   pool: 5
+
+production:
+  <<: *default
+
+staging:
+  <<: *default
+
+development:
+  <<: *default
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-  adapter: postgis
-  encoding: unicode
+  <<: *default
   database: wetap-api_test
-  pool: 5
 
 cucumber:
   <<: *test
