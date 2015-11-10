@@ -8,8 +8,8 @@ Example Usage
 -------------
 
 
-Get Fountain
-------------
+Get Fountains
+-------------
 
 ### Parameters
 
