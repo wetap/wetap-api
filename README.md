@@ -13,8 +13,8 @@ Get Fountains
 
 ### Parameters
 
-**public_token** To get your public token, request an api key from info@wetap.org.
-**bbox** bounding latitude and longitude of your query &lt;east&gt;,&lt;north&gt;,&lt;west&gt;
+- **public_token** To get your public token, request an api key from info@wetap.org.
+- **bbox** bounding latitude and longitude of your query &lt;east&gt;,&lt;north&gt;,&lt;west&gt;
 
 Returns all fountains (up to 50) within the specified bounding box.
 
